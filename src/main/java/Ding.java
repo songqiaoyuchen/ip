@@ -14,14 +14,13 @@ public class Ding {
         System.out.println("I am still learning...");
 
         // line break delimiter
-        String LINE_BREAK = "----------------------------------";
+        String LINE_BREAK = "----------------------------------------";
         System.out.println(LINE_BREAK);
 
         // interactive loop
         Scanner scanner = new Scanner(System.in);
         TaskManager taskManager = new TaskManager();
         while (true) {
-            System.out.print("You: ");
             String userInput = scanner.nextLine();
             // exit case
             if (userInput.equalsIgnoreCase("bye")) {

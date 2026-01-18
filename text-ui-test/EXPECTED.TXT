@@ -1,7 +1,55 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+ ____  _ 
+|  _ \(_)_ __   __ _ 
+| | | | | '_ \ / _` |
+| |_| | | | | | (_| |
+|____/|_|_| |_|\__, |
+               |___/ 
 
+Hi! My name is Ding. I'm 20 years old :)
+I am still learning...
+----------------------------------------
+Ding: Got it. I've added this task to your to-do list.
+Ding: You now have 1 tasks in the list. So hardworking!
+----------------------------------------
+Ding: Got it. I've added this task to your to-do list.
+Ding: You now have 2 tasks in the list. So hardworking!
+----------------------------------------
+Ding: Oops! Please provide a deadline in the format: deadline <description> /by <time>
+----------------------------------------
+Ding: Got it. I've added this task to your to-do list.
+Ding: You now have 3 tasks in the list. So hardworking!
+----------------------------------------
+Ding: Sorry, I don't understand what you are trying to do :(
+----------------------------------------
+Ding: Here are the tasks you have added:
+1. [T][ ] do work
+2. [E][ ] idk (from: tdy to: tmr)
+3. [D][ ] tutorial (by: 8pm)
+
+----------------------------------------
+Ding: Nice! I've marked this task as done.
+[T][X] do work
+----------------------------------------
+Ding: OKOK, I've marked this task as not done yet.
+[T][ ] do work
+----------------------------------------
+Ding: Here are the tasks you have added:
+1. [T][ ] do work
+2. [E][ ] idk (from: tdy to: tmr)
+3. [D][ ] tutorial (by: 8pm)
+
+----------------------------------------
+Ding: Uhhm, I can't find that task...
+----------------------------------------
+Ding: Nice! I've marked this task as done.
+[D][X] tutorial (by: 8pm)
+----------------------------------------
+Ding: Here are the tasks you have added:
+1. [T][ ] do work
+2. [E][ ] idk (from: tdy to: tmr)
+3. [D][X] tutorial (by: 8pm)
+
+----------------------------------------
+Ding: Sorry, I don't understand what you are trying to do :(
+----------------------------------------
+Ding: Goodbye! We will meet again soon.

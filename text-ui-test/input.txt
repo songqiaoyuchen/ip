@@ -1,0 +1,14 @@
+todo do work
+event idk /from tdy /to tmr
+deadline tutorial by 8pm
+deadline tutorial /by 8pm
+deadline
+list
+mark 1
+unmark 1
+list
+mark 4
+mark 3
+list
+exit
+bye
