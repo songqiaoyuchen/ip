@@ -1,6 +1,8 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Ding {
+    private static ArrayList<String> tasks = new ArrayList<>();
     public static void main(String[] args) {
         String logo = " ____  _ \n"
                 + "|  _ \\(_)_ __   __ _ \n"
@@ -26,9 +28,17 @@ public class Ding {
                 System.out.println("Ding: Goodbye! We will meet again soon.");
                 break;
             } else if (userInput.trim().isEmpty()) {
-                System.out.println("Ding: Say something and I will repeat after you.");
+                System.out.println("Ding: Add some tasks to your to-do list, and I will remember it for you.");
+            } else if (userInput.equalsIgnoreCase("list")) {
+                System.out.println("Ding: Here are the tasks you have added:");
+                for (int i = 0; i < tasks.size(); i++) {
+                    if (tasks.get(i) != null) {
+                        System.out.println((i + 1) + ". " + tasks.get(i));
+                    }
+                }
             } else {
-                System.out.println("Ding: " + userInput);
+                tasks.add(userInput);
+                System.out.println("Ding: Got it. I've added this task to your to-do list.");
             }
             System.out.println(LINE_BREAK);
         }
