@@ -49,6 +49,11 @@ public class TaskManager {
         return task;
     }
 
+    public void deleteTask(int index) throws DingException {
+        Task task = this.getTask(index);
+        tasks.remove(task);
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
