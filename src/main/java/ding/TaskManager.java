@@ -1,4 +1,8 @@
+package ding;
 import java.util.ArrayList;
+
+import ding.exceptions.DingException;
+import ding.tasks.Task;
 
 public class TaskManager {
     private ArrayList<Task> tasks;
@@ -15,22 +19,32 @@ public class TaskManager {
         tasks.add(task);
     }
 
-    public Task getTask(int index) {
+    public Task getTask(int index) throws DingException {
         if (index >= 0 && index < tasks.size()) {
             return tasks.get(index);
         } else {
-            throw new IndexOutOfBoundsException();
+            throw new DingException("Uhhm, I can't find that task...");
         }
     }
 
-    public Task markTaskDone(int index) {
+    public Task markTaskDone(int index) throws DingException {
         Task task = this.getTask(index);
+        if (task.isDone()) {
+            throw new DingException("Ha! This task is already marked as done."
+                + "Don't forget your hard work earlier :)"
+            );
+        }
         task.markDone();
         return task;
     }
 
-    public Task markTaskUndone(int index) {
+    public Task markTaskUndone(int index) throws DingException {
         Task task = this.getTask(index);
+        if (!task.isDone()) {
+            throw new DingException("This task is already marked as not done."
+                + "Let's get it done soon :)"
+            );
+        }
         task.markUndone();
         return task;
     }

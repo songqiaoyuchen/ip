@@ -8,48 +8,54 @@
 Hi! My name is Ding. I'm 20 years old :)
 I am still learning...
 ----------------------------------------
-Ding: Got it. I've added this task to your to-do list.
+Ding: Got it. I've added this task to your to-do list. [T][ ] do work
 Ding: You now have 1 tasks in the list. So hardworking!
 ----------------------------------------
 Ding: Got it. I've added this task to your to-do list.
+[E][ ] idk (from: dy to: mr)
 Ding: You now have 2 tasks in the list. So hardworking!
 ----------------------------------------
-Ding: Oops! Please provide a deadline in the format: deadline <description> /by <time>
+I'd love to add that deadline! Just use: deadline <description> /by <when>
 ----------------------------------------
 Ding: Got it. I've added this task to your to-do list.
+[D][ ] tutorial (by: pm)
 Ding: You now have 3 tasks in the list. So hardworking!
 ----------------------------------------
-Ding: Sorry, I don't understand what you are trying to do :(
+I'd love to add that deadline! Just use: deadline <description> /by <when>
 ----------------------------------------
 Ding: Here are the tasks you have added:
+
 1. [T][ ] do work
-2. [E][ ] idk (from: tdy to: tmr)
-3. [D][ ] tutorial (by: 8pm)
+2. [E][ ] idk (from: dy to: mr)
+3. [D][ ] tutorial (by: pm)
 
 ----------------------------------------
-Ding: Nice! I've marked this task as done.
+Ding: Nice! I've marked this task as done:
 [T][X] do work
 ----------------------------------------
-Ding: OKOK, I've marked this task as not done yet.
+Ding: OK, I've marked this task as not done yet:
 [T][ ] do work
 ----------------------------------------
 Ding: Here are the tasks you have added:
+
 1. [T][ ] do work
-2. [E][ ] idk (from: tdy to: tmr)
-3. [D][ ] tutorial (by: 8pm)
+2. [E][ ] idk (from: dy to: mr)
+3. [D][ ] tutorial (by: pm)
 
 ----------------------------------------
-Ding: Uhhm, I can't find that task...
+Uhhm, I can't find that task...
 ----------------------------------------
-Ding: Nice! I've marked this task as done.
-[D][X] tutorial (by: 8pm)
+Ding: Nice! I've marked this task as done:
+[D][X] tutorial (by: pm)
 ----------------------------------------
 Ding: Here are the tasks you have added:
+
 1. [T][ ] do work
-2. [E][ ] idk (from: tdy to: tmr)
-3. [D][X] tutorial (by: 8pm)
+2. [E][ ] idk (from: dy to: mr)
+3. [D][X] tutorial (by: pm)
 
 ----------------------------------------
-Ding: Sorry, I don't understand what you are trying to do :(
+I'm sorry, I don't understand that yet.
 ----------------------------------------
 Ding: Goodbye! We will meet again soon.
+----------------------------------------

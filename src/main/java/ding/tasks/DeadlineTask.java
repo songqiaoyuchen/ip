@@ -1,7 +1,8 @@
-public class Deadline extends Task {
+package ding.tasks;
+public class DeadlineTask extends Task {
     private String by;
 
-    public Deadline(String description, String by) {
+    public DeadlineTask(String description, String by) {
         super(description);
         this.by = by;
     }
