@@ -2,6 +2,10 @@ package ding;
 
 import ding.commands.*;
 import ding.exceptions.DingException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 public class Parser {
 
@@ -67,7 +71,44 @@ public class Parser {
         if (desc.isBlank()) throw new DingException("Your deadline needs a description! What's the task?");
         if (by.isBlank()) throw new DingException("Don't forget when it's due! Add a /by date please.");
 
-        return new DeadlineCommand(desc, by);
+        LocalDateTime byDateTime = parseDateTime(by);
+        return new DeadlineCommand(desc, byDateTime);
+    }
+
+    private LocalDateTime parseDateTime(String input) throws DingException {
+        String trimmed = input.trim();
+
+        DateTimeFormatter[] dateTimeFormats = new DateTimeFormatter[] {
+            DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"),
+            DateTimeFormatter.ofPattern("d/M/uuuu HHmm"),
+            DateTimeFormatter.ofPattern("d-M-uuuu HHmm")
+        };
+
+        DateTimeFormatter[] dateOnlyFormats = new DateTimeFormatter[] {
+            DateTimeFormatter.ofPattern("yyyy-MM-dd"),
+            DateTimeFormatter.ofPattern("d/M/uuuu"),
+            DateTimeFormatter.ofPattern("d-M-uuuu")
+        };
+
+        for (DateTimeFormatter formatter : dateTimeFormats) {
+            try {
+                return LocalDateTime.parse(trimmed, formatter);
+            } catch (DateTimeParseException ignored) {
+                // try next format
+            }
+        }
+
+        for (DateTimeFormatter formatter : dateOnlyFormats) {
+            try {
+                LocalDate date = LocalDate.parse(trimmed, formatter);
+                return date.atStartOfDay();
+            } catch (DateTimeParseException ignored) {
+                // try next format
+            }
+        }
+
+        throw new DingException(
+            "I couldn't understand that date/time. Try formats like 2019-12-02 1800 or 2/12/2019.");
     }
 
     private EventCommand parseEvent(String args) throws DingException {
@@ -90,6 +131,8 @@ public class Parser {
                 "I need to know when your event is! Add /from and /to times please.");
         }
 
-        return new EventCommand(desc, from, to);
+        LocalDateTime fromDateTime = parseDateTime(from);
+        LocalDateTime toDateTime = parseDateTime(to);
+        return new EventCommand(desc, fromDateTime, toDateTime);
     }
 }

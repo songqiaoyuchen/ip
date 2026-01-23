@@ -3,13 +3,14 @@ package ding.commands;
 import ding.TaskManager;
 import ding.tasks.EventTask;
 import ding.exceptions.DingException;
+import java.time.LocalDateTime;
 
 public class EventCommand extends Command {
     private String description;
-    private String from;
-    private String to;
+    private LocalDateTime from;
+    private LocalDateTime to;
 
-    public EventCommand(String description, String from, String to) {
+    public EventCommand(String description, LocalDateTime from, LocalDateTime to) {
         this.description = description;
         this.from = from;
         this.to = to;
