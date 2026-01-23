@@ -5,18 +5,25 @@ import ding.exceptions.DingException;
 import ding.tasks.Task;
 
 public class TaskManager {
-    private ArrayList<Task> tasks;
+    private final ArrayList<Task> tasks;
+    private final Storage storage;
 
-    public TaskManager() {
-        this.tasks = new ArrayList<Task>();
+    public TaskManager(Storage storage) {
+        this(storage, new ArrayList<Task>());
+    }
+
+    public TaskManager(Storage storage, ArrayList<Task> initialTasks) {
+        this.storage = storage;
+        this.tasks = new ArrayList<Task>(initialTasks);
     }
 
     public int getTaskCount() {
         return tasks.size();
     }
 
-    public void addTask(Task task) {
+    public void addTask(Task task) throws DingException {
         tasks.add(task);
+        persist();
     }
 
     public Task getTask(int index) throws DingException {
@@ -35,6 +42,7 @@ public class TaskManager {
             );
         }
         task.markDone();
+        persist();
         return task;
     }
 
@@ -46,12 +54,14 @@ public class TaskManager {
             );
         }
         task.markUndone();
+        persist();
         return task;
     }
 
     public void deleteTask(int index) throws DingException {
         Task task = this.getTask(index);
         tasks.remove(task);
+        persist();
     }
 
     @Override
@@ -61,5 +71,9 @@ public class TaskManager {
             sb.append((i + 1) + ". " + tasks.get(i).toString() + "\n");
         }
         return sb.toString();
+    }
+
+    private void persist() throws DingException {
+        storage.save(tasks);
     }
 }

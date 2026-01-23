@@ -1,6 +1,7 @@
 package ding.commands;
 
 import ding.tasks.DeadlineTask;
+import ding.exceptions.DingException;
 
 public class DeadlineCommand extends Command {
     private String description;
@@ -12,7 +13,7 @@ public class DeadlineCommand extends Command {
     }
 
     @Override
-    public String execute(ding.TaskManager taskManager) {
+    public String execute(ding.TaskManager taskManager) throws DingException {
         DeadlineTask newDeadline = new DeadlineTask(description, by);
         taskManager.addTask(newDeadline);
         return "Ding: Got it. I've added this task to your to-do list.\n"

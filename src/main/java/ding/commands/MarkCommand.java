@@ -13,12 +13,7 @@ public class MarkCommand extends Command {
 
     @Override
     public String execute(TaskManager taskManager) throws DingException {
-        Task task = taskManager.getTask(taskIndex);
-        if (task.isDone()) {
-            throw new DingException("Ding: This task is already marked as done:\n" 
-                + "Did you mean to unmark it instead?\n" + task.toString());
-        }
-        task.markDone();
+        Task task = taskManager.markTaskDone(taskIndex);
         return "Ding: Nice! I've marked this task as done:\n" + task.toString();
     }   
     
