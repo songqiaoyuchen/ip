@@ -11,23 +11,17 @@ I am still learning...
 Ding: Got it. I've added this task to your to-do list. [T][ ] do work
 Ding: You now have 1 tasks in the list. So hardworking!
 ----------------------------------------
-Ding: Got it. I've added this task to your to-do list.
-[E][ ] idk (from: dy to: mr)
-Ding: You now have 2 tasks in the list. So hardworking!
+I couldn't understand that date/time. Try formats like 2019-12-02 1800 or 2/12/2019.
 ----------------------------------------
 I'd love to add that deadline! Just use: deadline <description> /by <when>
 ----------------------------------------
-Ding: Got it. I've added this task to your to-do list.
-[D][ ] tutorial (by: pm)
-Ding: You now have 3 tasks in the list. So hardworking!
+I couldn't understand that date/time. Try formats like 2019-12-02 1800 or 2/12/2019.
 ----------------------------------------
 I'd love to add that deadline! Just use: deadline <description> /by <when>
 ----------------------------------------
 Ding: Here are the tasks you have added:
 
 1. [T][ ] do work
-2. [E][ ] idk (from: dy to: mr)
-3. [D][ ] tutorial (by: pm)
 
 ----------------------------------------
 Ding: Nice! I've marked this task as done:
@@ -39,20 +33,15 @@ Ding: OK, I've marked this task as not done yet:
 Ding: Here are the tasks you have added:
 
 1. [T][ ] do work
-2. [E][ ] idk (from: dy to: mr)
-3. [D][ ] tutorial (by: pm)
 
 ----------------------------------------
 Uhhm, I can't find that task...
 ----------------------------------------
-Ding: Nice! I've marked this task as done:
-[D][X] tutorial (by: pm)
+Uhhm, I can't find that task...
 ----------------------------------------
 Ding: Here are the tasks you have added:
 
 1. [T][ ] do work
-2. [E][ ] idk (from: dy to: mr)
-3. [D][X] tutorial (by: pm)
 
 ----------------------------------------
 I'm sorry, I don't understand that yet.

@@ -6,6 +6,9 @@ if not exist ..\bin mkdir ..\bin
 REM delete output from previous run
 if exist ACTUAL.TXT del ACTUAL.TXT
 
+REM delete previous storage
+if exist .\data\ding.txt del .\data\ding.txt
+
 REM compile the code into the bin folder
 javac -cp ..\src\main\java -Xlint:none -d ..\bin ..\src\main\java\ding\Ding.java
 IF ERRORLEVEL 1 (

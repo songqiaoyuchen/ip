@@ -13,6 +13,10 @@ import ding.tasks.DeadlineTask;
 import ding.tasks.EventTask;
 import ding.tasks.Task;
 import ding.tasks.TodoTask;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 /**
  * Handles reading and writing tasks to disk.
@@ -104,7 +108,8 @@ public class Storage {
 			throw new DingException("Deadline entry missing due date");
 		}
 		String by = parts[3].trim();
-		return new DeadlineTask(description, by, isDone);
+		LocalDateTime parsedBy = parseStoredDateTime(by);
+		return new DeadlineTask(description, parsedBy, isDone);
 	}
 
 	private Task deserializeEvent(
@@ -114,6 +119,20 @@ public class Storage {
 		}
 		String from = parts[3].trim();
 		String to = parts[4].trim();
-		return new EventTask(description, from, to, isDone);
+		LocalDateTime parsedFrom = parseStoredDateTime(from);
+		LocalDateTime parsedTo = parseStoredDateTime(to);
+		return new EventTask(description, parsedFrom, parsedTo, isDone);
+	}
+
+	private LocalDateTime parseStoredDateTime(String value) throws DingException {
+		try {
+			return LocalDateTime.parse(value, DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+		} catch (DateTimeParseException e) {
+			try {
+				return LocalDate.parse(value, DateTimeFormatter.ISO_LOCAL_DATE).atStartOfDay();
+			} catch (DateTimeParseException ex) {
+				throw new DingException("Stored deadline has invalid date/time: " + value);
+			}
+		}
 	}
 }

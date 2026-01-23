@@ -1,15 +1,22 @@
 package ding.tasks;
-public class EventTask extends Task {
-    private String from;
-    private String to;
 
-    public EventTask(String description, String from, String to) {
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
+public class EventTask extends Task {
+    private static final DateTimeFormatter DISPLAY_FORMAT =
+            DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
+
+    private final LocalDateTime from;
+    private final LocalDateTime to;
+
+    public EventTask(String description, LocalDateTime from, LocalDateTime to) {
         super(description);
         this.from = from;
         this.to = to;
     }
 
-    public EventTask(String description, String from, String to, boolean isDone) {
+    public EventTask(String description, LocalDateTime from, LocalDateTime to, boolean isDone) {
         super(description, isDone);
         this.from = from;
         this.to = to;
@@ -17,7 +24,8 @@ public class EventTask extends Task {
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
+        return "[E]" + super.toString() + " (from: " + from.format(DISPLAY_FORMAT)
+                + " to: " + to.format(DISPLAY_FORMAT) + ")";
     }
 
     @Override
