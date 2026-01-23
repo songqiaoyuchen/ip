@@ -1,8 +1,10 @@
 package ding;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import ding.commands.Command;
 import ding.exceptions.DingException;
+import ding.tasks.Task;
 
 public class Ding {
     public static void main(String[] args) {
@@ -23,7 +25,15 @@ public class Ding {
 
         // interactive loop
         Scanner scanner = new Scanner(System.in);
-        TaskManager taskManager = new TaskManager();
+        Storage storage = new Storage();
+        ArrayList<Task> initialTasks = new ArrayList<Task>();
+        try {
+            initialTasks = storage.load();
+        } catch (DingException e) {
+            System.out.println("I can't seem to find the tasks saved: " + e.getMessage());
+        }
+
+        TaskManager taskManager = new TaskManager(storage, initialTasks);
         Parser parser = new Parser();
         while (true) {
             try {

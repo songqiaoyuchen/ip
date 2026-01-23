@@ -2,6 +2,7 @@ package ding.commands;
 
 import ding.TaskManager;
 import ding.tasks.EventTask;
+import ding.exceptions.DingException;
 
 public class EventCommand extends Command {
     private String description;
@@ -15,7 +16,7 @@ public class EventCommand extends Command {
     }
 
     @Override
-    public String execute(TaskManager taskManager) {
+    public String execute(TaskManager taskManager) throws DingException {
         EventTask newEvent = new EventTask(description, from, to);
         taskManager.addTask(newEvent);
         return "Ding: Got it. I've added this task to your to-do list.\n"
