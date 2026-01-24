@@ -5,47 +5,53 @@
 |____/|_|_| |_|\__, |
                |___/ 
 
-Hi! My name is Ding. I'm 20 years old :)
-I am still learning...
-----------------------------------------
-Ding: Got it. I've added this task to your to-do list.
+Hi! I'm Ding from the highlands. I'm 20 years young :)
+Welcome to my world! Still learning English, just like my horse Pearl learning to trot!
+========================================
+Ding: Got it! Task has been added to my little notebook:
 [T][ ] do work
-You now have 1 tasks in the list. So hardworking!
-----------------------------------------
+You now have 1 tasks. Keep grinding, worker!
+(Every step forward counts, even on the steepest trail!)
+========================================
 Ding: I couldn't understand that date/time. Try formats like 2019-12-02 1800 or 2/12/2019.
-----------------------------------------
+========================================
 Ding: I'd love to add that deadline! Just use: deadline <description> /by <when>
-----------------------------------------
+========================================
 Ding: I couldn't understand that date/time. Try formats like 2019-12-02 1800 or 2/12/2019.
-----------------------------------------
+========================================
 Ding: I'd love to add that deadline! Just use: deadline <description> /by <when>
-----------------------------------------
-Ding: Here are the tasks you have added:
+========================================
+Ding: Here's your current task list:
 
 1. [T][ ] do work
 
-----------------------------------------
-Ding: Nice! I've marked this task as done:
+========================================
+Ding: Excellent work! Task marked as completed:
 [T][X] do work
-----------------------------------------
-Ding: OK, I've marked this task as not done yet:
+(Mission accomplished! Time for some sweet tea reward!)
+========================================
+Ding: Noted, I've returned this task to 'pending':
 [T][ ] do work
-----------------------------------------
-Ding: Here are the tasks you have added:
+(Slow and steady wins the race!)
+========================================
+Ding: Here's your current task list:
 
 1. [T][ ] do work
 
-----------------------------------------
-Ding: Uhhm, I can't find that task...
-----------------------------------------
-Ding: Uhhm, I can't find that task...
-----------------------------------------
-Ding: Here are the tasks you have added:
+========================================
+Ding: Hmm, I can't seem to find that task...
+(Maybe it wandered off like a free-spirited horse?)
+========================================
+Ding: Hmm, I can't seem to find that task...
+(Maybe it wandered off like a free-spirited horse?)
+========================================
+Ding: Here's your current task list:
 
 1. [T][ ] do work
 
-----------------------------------------
+========================================
 Ding: I'm sorry, I don't understand that yet.
-----------------------------------------
-Ding: Goodbye! We will meet again soon.
-----------------------------------------
+========================================
+Ding: Goodbye, friends! We'll meet again when the snow melts on the mountains.
+Remember: The world is vast, and there's much to explore!
+========================================

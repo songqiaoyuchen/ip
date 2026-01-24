@@ -1,7 +1,7 @@
 package ding.ui;
 
 /**
- * Contains all user-facing messages used by the application.
+ * Contains all user-facing messages used in the Ding application.
  */
 public class Messages {
     // UI Constants
@@ -11,36 +11,44 @@ public class Messages {
             + "| |_| | | | | | (_| |\n"
             + "|____/|_|_| |_|\\__, |\n"
             + "               |___/ \n";
-    public static final String LINE_BREAK = "----------------------------------------";
+    public static final String LINE_BREAK = "=".repeat(40);
     
     // Welcome messages
-    public static final String WELCOME = "Hi! My name is Ding. I'm 20 years old :)\nI am still learning...";
+    public static final String WELCOME = "Hi! I'm Ding from the highlands. I'm 20 years young :)\n"
+            + "Welcome to my world! Still learning English, just like my horse Pearl learning to trot!";
     
     // Exit message
-    public static final String GOODBYE = "Goodbye! We will meet again soon.";
+    public static final String GOODBYE = "Goodbye, friends! We'll meet again when the snow melts on the mountains.\n"
+            + "Remember: The world is vast, and there's much to explore!";
     
     // Task added messages
-    public static final String TASK_ADDED = "Got it. I've added this task to your to-do list.\n%s";
-    public static final String TASK_COUNT = "You now have %d tasks in the list. So hardworking!";
+    public static final String TASK_ADDED = "Got it! Task has been added to my little notebook:\n%s";
+    public static final String TASK_COUNT = "You now have %d tasks. Keep grinding, worker!\n"
+            + "(Every step forward counts, even on the steepest trail!)";
     
     // Task status messages
-    public static final String TASK_MARKED_DONE = "Nice! I've marked this task as done:\n%s";
-    public static final String TASK_MARKED_UNDONE = "OK, I've marked this task as not done yet:\n%s";
+    public static final String TASK_MARKED_DONE = "Excellent work! Task marked as completed:\n%s\n"
+            + "(Mission accomplished! Time for some sweet tea reward!)";
+    public static final String TASK_MARKED_UNDONE = "Noted, I've returned this task to 'pending':\n%s\n"
+            + "(Slow and steady wins the race!)";
     
     // Task deletion messages
-    public static final String TASK_DELETED = "Noted. I've removed this task:\n%s";
-    public static final String TASK_COUNT_AFTER_DELETE = "You now have %d tasks in the list. Keep going!";
+    public static final String TASK_DELETED = "Deleted, erased, gone forever! Removed this task:\n%s";
+    public static final String TASK_COUNT_AFTER_DELETE = "Now down to %d tasks. \n"
+            + "(Hard work pays off, even when you're deleting things!)";
     
     // List messages
-    public static final String TASK_LIST_HEADER = "Here are the tasks you have added:\n\n%s";
+    public static final String TASK_LIST_HEADER = "Here's your current task list:\n\n%s";
+    public static final String EMPTY_LIST = "Your task list is as empty as a peaceful grassland!\n"
+        + "(Enjoy the freedom while it lasts!)";
     
     // Error messages - TaskManager
-    public static final String ERROR_TASK_NOT_FOUND = "Uhhm, I can't find that task...";
-    public static final String ERROR_TASK_ALREADY_DONE = "Ha! This task is already marked as done."
-            + "Don't forget your hard work earlier :)";
-    public static final String ERROR_TASK_ALREADY_UNDONE = "This task is already marked as not done."
-            + "Let's get it done soon :)";
-    
-    // Error messages - Storage
-    public static final String ERROR_LOAD_TASKS = "I can't seem to find the tasks saved: %s";
+    public static final String ERROR_TASK_NOT_FOUND = "Hmm, I can't seem to find that task...\n"
+            + "(Maybe it wandered off like a free-spirited horse?)";
+    public static final String ERROR_TASK_ALREADY_DONE = "This task is already completed, friend!\n"
+            + "(No need to mark it twice - your work here is done!)";
+    public static final String ERROR_TASK_ALREADY_UNDONE = "This task is already in the 'to-do' pile.\n"
+            + "(Patience, my friend - let the bullet fly a little longer!)";
+    public static final String ERROR_LOAD_TASKS = "I couldn't load your tasks from: %s\n"
+            + "(Don't worry, we can start fresh! Even the clearest lake starts with a single drop.)";
 }
