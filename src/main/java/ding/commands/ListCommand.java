@@ -1,10 +1,12 @@
 package ding.commands;
 
+import ding.Messages;
 import ding.TaskManager;
+import ding.Ui;
 
 public class ListCommand extends Command {
     @Override
-    public String execute(TaskManager taskManager) {
-        return "Ding: Here are the tasks you have added:\n\n" + taskManager.toString();
+    public void execute(TaskManager taskManager, Ui ui) {
+        ui.showMessage(String.format(Messages.TASK_LIST_HEADER, taskManager.toString()));
     }
 }

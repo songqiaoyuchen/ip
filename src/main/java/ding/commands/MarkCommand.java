@@ -1,6 +1,8 @@
 package ding.commands;
 
+import ding.Messages;
 import ding.TaskManager;
+import ding.Ui;
 import ding.exceptions.DingException;
 import ding.tasks.Task;
 
@@ -12,9 +14,9 @@ public class MarkCommand extends Command {
     }
 
     @Override
-    public String execute(TaskManager taskManager) throws DingException {
+    public void execute(TaskManager taskManager, Ui ui) throws DingException {
         Task task = taskManager.markTaskDone(taskIndex);
-        return "Ding: Nice! I've marked this task as done:\n" + task.toString();
+        ui.showMessage(String.format(Messages.TASK_MARKED_DONE, task.toString()));
     }   
     
 }

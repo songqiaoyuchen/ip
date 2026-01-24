@@ -1,6 +1,8 @@
 package ding.commands;
 
+import ding.Messages;
 import ding.TaskManager;
+import ding.Ui;
 import ding.exceptions.DingException;
 import ding.tasks.Task;
 
@@ -12,11 +14,11 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public String execute(TaskManager taskManager) throws DingException {
+    public void execute(TaskManager taskManager, Ui ui) throws DingException {
         Task task = taskManager.getTask(taskIndex);
         taskManager.deleteTask(taskIndex);
-        return "Ding: Noted. I've removed this task:\n" + task.toString()
-            + "\nDing: You now have " + taskManager.getTaskCount() 
-            + " tasks in the list. Keep going!";
+        String message = String.format(Messages.TASK_DELETED, task.toString())
+            + "\n" + String.format(Messages.TASK_COUNT_AFTER_DELETE, taskManager.getTaskCount());
+        ui.showMessage(message);
     }
 }

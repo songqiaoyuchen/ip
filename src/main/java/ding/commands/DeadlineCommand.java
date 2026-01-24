@@ -1,5 +1,8 @@
 package ding.commands;
 
+import ding.Messages;
+import ding.TaskManager;
+import ding.Ui;
 import ding.tasks.DeadlineTask;
 import ding.exceptions.DingException;
 import java.time.LocalDateTime;
@@ -14,13 +17,12 @@ public class DeadlineCommand extends Command {
     }
 
     @Override
-    public String execute(ding.TaskManager taskManager) throws DingException {
+    public void execute(TaskManager taskManager, Ui ui) throws DingException {
         DeadlineTask newDeadline = new DeadlineTask(description, by);
         taskManager.addTask(newDeadline);
-        return "Ding: Got it. I've added this task to your to-do list.\n"
-            + newDeadline.toString() + "\n"
-            + "Ding: You now have " + taskManager.getTaskCount() 
-            + " tasks in the list. So hardworking!";
+        String message = String.format(Messages.TASK_ADDED, newDeadline.toString())
+            + "\n" + String.format(Messages.TASK_COUNT, taskManager.getTaskCount());
+        ui.showMessage(message);
     }
     
 }

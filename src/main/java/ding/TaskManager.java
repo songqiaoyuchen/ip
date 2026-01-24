@@ -30,16 +30,14 @@ public class TaskManager {
         if (index >= 0 && index < tasks.size()) {
             return tasks.get(index);
         } else {
-            throw new DingException("Uhhm, I can't find that task...");
+            throw new DingException(Messages.ERROR_TASK_NOT_FOUND);
         }
     }
 
     public Task markTaskDone(int index) throws DingException {
         Task task = this.getTask(index);
         if (task.isDone()) {
-            throw new DingException("Ha! This task is already marked as done."
-                + "Don't forget your hard work earlier :)"
-            );
+            throw new DingException(Messages.ERROR_TASK_ALREADY_DONE);
         }
         task.markDone();
         persist();
@@ -49,9 +47,7 @@ public class TaskManager {
     public Task markTaskUndone(int index) throws DingException {
         Task task = this.getTask(index);
         if (!task.isDone()) {
-            throw new DingException("This task is already marked as not done."
-                + "Let's get it done soon :)"
-            );
+            throw new DingException(Messages.ERROR_TASK_ALREADY_UNDONE);
         }
         task.markUndone();
         persist();

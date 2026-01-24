@@ -1,6 +1,8 @@
 package ding.commands;
 
+import ding.Messages;
 import ding.TaskManager;
+import ding.Ui;
 import ding.exceptions.DingException;
 import ding.tasks.Task;
 
@@ -12,9 +14,9 @@ public class UnmarkCommand extends Command {
     }
 
     @Override
-    public String execute(TaskManager taskManager) throws DingException {
+    public void execute(TaskManager taskManager, Ui ui) throws DingException {
         Task task = taskManager.markTaskUndone(taskIndex);
-        return "Ding: OK, I've marked this task as not done yet:\n" + task.toString();
+        ui.showMessage(String.format(Messages.TASK_MARKED_UNDONE, task.toString()));
     }
     
 }

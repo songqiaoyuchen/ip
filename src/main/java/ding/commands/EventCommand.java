@@ -1,6 +1,8 @@
 package ding.commands;
 
+import ding.Messages;
 import ding.TaskManager;
+import ding.Ui;
 import ding.tasks.EventTask;
 import ding.exceptions.DingException;
 import java.time.LocalDateTime;
@@ -17,13 +19,12 @@ public class EventCommand extends Command {
     }
 
     @Override
-    public String execute(TaskManager taskManager) throws DingException {
+    public void execute(TaskManager taskManager, Ui ui) throws DingException {
         EventTask newEvent = new EventTask(description, from, to);
         taskManager.addTask(newEvent);
-        return "Ding: Got it. I've added this task to your to-do list.\n"
-            + newEvent.toString() + "\n"
-            + "Ding: You now have " + taskManager.getTaskCount() 
-            + " tasks in the list. So hardworking!";
+        String message = String.format(Messages.TASK_ADDED, newEvent.toString())
+            + "\n" + String.format(Messages.TASK_COUNT, taskManager.getTaskCount());
+        ui.showMessage(message);
     }
     
 }

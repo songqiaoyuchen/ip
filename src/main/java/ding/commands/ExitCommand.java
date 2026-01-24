@@ -1,11 +1,13 @@
 package ding.commands;
 
+import ding.Messages;
 import ding.TaskManager;
+import ding.Ui;
 
 public class ExitCommand extends Command {
     @Override
-    public String execute(TaskManager taskManager) {
-        return "Ding: Goodbye! We will meet again soon.";
+    public void execute(TaskManager taskManager, Ui ui) {
+        ui.showMessage(Messages.GOODBYE);
     }
 
     @Override
