@@ -1,10 +1,10 @@
 package ding.commands;
 
-import ding.Messages;
 import ding.TaskManager;
-import ding.Ui;
 import ding.exceptions.DingException;
 import ding.tasks.Task;
+import ding.ui.Messages;
+import ding.ui.Ui;
 
 public class MarkCommand extends Command {
     private int taskIndex;

@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import ding.commands.Command;
 import ding.exceptions.DingException;
 import ding.tasks.Task;
+import ding.ui.Messages;
+import ding.ui.Ui;
 
 public class Ding {
     

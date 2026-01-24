@@ -1,9 +1,9 @@
 package ding.commands;
 
-import ding.Messages;
 import ding.TaskManager;
-import ding.Ui;
 import ding.tasks.TodoTask;
+import ding.ui.Messages;
+import ding.ui.Ui;
 import ding.exceptions.DingException;
 
 public class TodoCommand extends Command {

@@ -3,6 +3,7 @@ import java.util.ArrayList;
 
 import ding.exceptions.DingException;
 import ding.tasks.Task;
+import ding.ui.Messages;
 
 public class TaskManager {
     private final ArrayList<Task> tasks;

@@ -1,8 +1,8 @@
 package ding.commands;
 
-import ding.Messages;
 import ding.TaskManager;
-import ding.Ui;
+import ding.ui.Messages;
+import ding.ui.Ui;
 
 public class ExitCommand extends Command {
     @Override

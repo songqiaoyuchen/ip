@@ -1,4 +1,4 @@
-package ding;
+package ding.ui;
 
 import java.util.Scanner;
 

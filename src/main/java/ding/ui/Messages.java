@@ -1,4 +1,4 @@
-package ding;
+package ding.ui;
 
 /**
  * Contains all user-facing messages used by the application.
