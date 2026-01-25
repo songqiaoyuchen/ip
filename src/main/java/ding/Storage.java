@@ -24,14 +24,30 @@ import java.time.format.DateTimeParseException;
 public class Storage {
 	private final Path filePath;
 
+	/**
+	 * Constructs a Storage object with the default data file path (data/ding.txt).
+	 */
 	public Storage() {
 		this(Paths.get("data", "ding.txt"));
 	}
 
+	/**
+	 * Constructs a Storage object with a custom file path.
+	 *
+	 * @param filePath the path to the storage file
+	 */
 	public Storage(Path filePath) {
 		this.filePath = filePath;
 	}
 
+	/**
+	 * Loads all tasks from the storage file.
+	 * Creates the data directory if it does not exist.
+	 * Skips corrupted lines and continues loading remaining tasks.
+	 *
+	 * @return an ArrayList of Task objects loaded from storage
+	 * @throws DingException if a fatal error occurs while reading the file
+	 */
 	public ArrayList<Task> load() throws DingException {
 		createDataDirectories();
 		if (!Files.exists(filePath)) {
@@ -60,6 +76,14 @@ public class Storage {
 		return tasks;
 	}
 
+	/**
+	 * Saves all tasks to the storage file.
+	 * Creates the data directory if it does not exist.
+	 * Overwrites the existing file with the current task list.
+	 *
+	 * @param tasks the ArrayList of Task objects to save
+	 * @throws DingException if an error occurs while writing to the file
+	 */
 	public void save(ArrayList<Task> tasks) throws DingException {
 		createDataDirectories();
 		try (BufferedWriter writer = Files.newBufferedWriter(filePath)) {
