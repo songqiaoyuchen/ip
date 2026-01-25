@@ -14,7 +14,7 @@ public class Ding {
         ui.showWelcome();
 
         Storage storage = new Storage();
-        ArrayList<Task> initialTasks = new ArrayList<Task>();
+        ArrayList<Task> initialTasks = new ArrayList<>();
         try {
             initialTasks = storage.load();
         } catch (DingException e) {

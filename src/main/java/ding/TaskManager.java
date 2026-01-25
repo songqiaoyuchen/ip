@@ -10,12 +10,12 @@ public class TaskManager {
     private final Storage storage;
 
     public TaskManager(Storage storage) {
-        this(storage, new ArrayList<Task>());
+        this(storage, new ArrayList<>());
     }
 
     public TaskManager(Storage storage, ArrayList<Task> initialTasks) {
         this.storage = storage;
-        this.tasks = new ArrayList<Task>(initialTasks);
+        this.tasks = new ArrayList<>(initialTasks);
     }
 
     public int getTaskCount() {
@@ -68,7 +68,7 @@ public class TaskManager {
         }
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < tasks.size(); i++) {
-            sb.append((i + 1) + ". " + tasks.get(i).toString() + "\n");
+            sb.append((i + 1)).append(". ").append(tasks.get(i).toString()).append("\n");
         }
         return sb.toString();
     }
