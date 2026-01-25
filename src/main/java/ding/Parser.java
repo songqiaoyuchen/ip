@@ -9,6 +9,13 @@ import java.time.format.DateTimeParseException;
 
 public class Parser {
 
+    /**
+     * Parses a user input string and returns the corresponding Command object.
+     *
+     * @param input the user input string to parse
+     * @return the Command object corresponding to the input
+     * @throws DingException if the input is invalid or unrecognized
+     */
     public Command parse(String input) throws DingException {
         if (input == null) {
             throw new DingException("Oops! I'm waiting for your command. Don't leave me hanging!");
@@ -35,6 +42,13 @@ public class Parser {
         };
     }
 
+    /**
+     * Parses a task index from a string argument.
+     *
+     * @param args the argument string containing the one-based task index
+     * @return the zero-based task index
+     * @throws DingException if the index is missing or invalid
+     */
     private int parseIndex(String args) throws DingException {
         if (args.isBlank()) {
             throw new DingException("Which task? Please tell me the task number!");
@@ -48,6 +62,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses a todo command and returns a TodoCommand object.
+     *
+     * @param args the arguments string containing the todo description
+     * @return a TodoCommand object
+     * @throws DingException if the description is missing
+     */
     private TodoCommand parseTodo(String args) throws DingException {
         if (args.isBlank()) {
             throw new DingException(
@@ -56,6 +77,14 @@ public class Parser {
         return new TodoCommand(args.trim());
     }
 
+    /**
+     * Parses a deadline command and returns a DeadlineCommand object.
+     * Expected format: "<description> /by <date/time>"
+     *
+     * @param args the arguments string containing description and deadline
+     * @return a DeadlineCommand object
+     * @throws DingException if the format is invalid or required fields are missing
+     */
     private DeadlineCommand parseDeadline(String args) throws DingException {
         // format: <desc> /by <when>
         String rest = args.trim();
@@ -76,6 +105,14 @@ public class Parser {
         return new DeadlineCommand(desc, byDateTime);
     }
 
+    /**
+     * Parses a date/time string in various supported formats.
+     * Supports formats like "yyyy-MM-dd HHmm", "d/M/uuuu HHmm", and date-only formats.
+     *
+     * @param input the date/time string to parse
+     * @return a LocalDateTime object
+     * @throws DingException if the input format is not recognized
+     */
     private LocalDateTime parseDateTime(String input) throws DingException {
         String trimmed = input.trim();
 
@@ -112,6 +149,14 @@ public class Parser {
             "I couldn't understand that date/time. Try formats like 2019-12-02 1800 or 2/12/2019.");
     }
 
+    /**
+     * Parses an event command and returns an EventCommand object.
+     * Expected format: "<description> /from <date/time> /to <date/time>"
+     *
+     * @param args the arguments string containing description and time range
+     * @return an EventCommand object
+     * @throws DingException if the format is invalid or required fields are missing
+     */
     private EventCommand parseEvent(String args) throws DingException {
         // format: <desc> /from <start> /to <end>
         String rest = args.trim();

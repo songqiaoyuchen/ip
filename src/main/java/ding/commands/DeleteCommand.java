@@ -9,10 +9,22 @@ import ding.ui.Ui;
 public class DeleteCommand extends Command {
     private int taskIndex;
 
+    /**
+     * Constructs a DeleteCommand with the index of the task to delete.
+     *
+     * @param taskIndex the zero-based index of the task to delete
+     */
     public DeleteCommand(int taskIndex) {
         this.taskIndex = taskIndex;
     }
 
+    /**
+     * Executes the delete command by removing the specified task from the task manager.
+     *
+     * @param taskManager the TaskManager to delete the task from
+     * @param ui the Ui object for displaying the deletion confirmation
+     * @throws DingException if the task is not found
+     */
     @Override
     public void execute(TaskManager taskManager, Ui ui) throws DingException {
         Task task = taskManager.getTask(taskIndex);
