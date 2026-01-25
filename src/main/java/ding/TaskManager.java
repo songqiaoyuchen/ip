@@ -1,4 +1,5 @@
 package ding;
+
 import java.util.ArrayList;
 
 import ding.exceptions.DingException;

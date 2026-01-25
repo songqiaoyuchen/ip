@@ -12,6 +12,11 @@ public abstract class Task {
         this.isDone = isDone;
     }
 
+    /**
+     * Returns whether the task is marked as completed.
+     *
+     * @return true if the task is done, false otherwise
+     */
     public boolean isDone() {
         return isDone;
     }
@@ -24,6 +29,11 @@ public abstract class Task {
         this.isDone = false;
     }
 
+    /**
+     * Returns the description of the task.
+     *
+     * @return the task description
+     */
     public String getDescription() {
         return description;
     }
@@ -34,6 +44,11 @@ public abstract class Task {
 
     public abstract String serialize();
 
+    /**
+     * Returns a string representation of the task.
+     *
+     * @return the status marker and description
+     */
     @Override
     public String toString() {
         return getStatus() + " " + this.description;
