@@ -66,7 +66,8 @@ public class Parser {
         }
 
         String desc = rest.substring(0, byPos).trim();
-        String by = rest.substring(byPos + 5).trim();
+        // "/by " has length 4; start after that
+        String by = rest.substring(byPos + 4).trim();
 
         if (desc.isBlank()) throw new DingException("Your deadline needs a description! What's the task?");
         if (by.isBlank()) throw new DingException("Don't forget when it's due! Add a /by date please.");
@@ -122,8 +123,8 @@ public class Parser {
         }
 
         String desc = rest.substring(0, fromPos).trim();
-        String from = rest.substring(fromPos + 7, toPos).trim();
-        String to = rest.substring(toPos + 5).trim();
+        String from = rest.substring(fromPos + 6, toPos).trim();
+        String to = rest.substring(toPos + 4).trim();
 
         if (desc.isBlank()) throw new DingException("Your event needs a description! What's happening?");
         if (from.isBlank() || to.isBlank()) {
