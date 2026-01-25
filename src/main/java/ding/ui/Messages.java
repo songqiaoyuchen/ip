@@ -41,6 +41,8 @@ public class Messages {
     public static final String TASK_LIST_HEADER = "Here's your current task list:\n\n%s";
     public static final String EMPTY_LIST = "Your task list is as empty as a peaceful grassland!\n"
         + "(Enjoy the freedom while it lasts!)";
+    public static final String FIND_RESULTS = "Here are the matching tasks in your list:\n%s";
+    public static final String FIND_NO_MATCHES = "I couldn't find any tasks matching that keyword.";
     
     // Error messages - TaskManager
     public static final String ERROR_TASK_NOT_FOUND = "Hmm, I can't seem to find that task...\n"

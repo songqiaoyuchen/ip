@@ -42,6 +42,7 @@ public class Parser {
             case "mark"     -> new MarkCommand(parseIndex(args));
             case "unmark"   -> new UnmarkCommand(parseIndex(args));
             case "delete"   -> new DeleteCommand(parseIndex(args));
+            case "find"     -> new FindCommand(args);
             case "todo"     -> parseTodo(args);
             case "deadline" -> parseDeadline(args);
             case "event"    -> parseEvent(args);

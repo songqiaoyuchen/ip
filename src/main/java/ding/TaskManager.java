@@ -112,6 +112,23 @@ public class TaskManager {
     }
 
     /**
+     * Finds tasks whose descriptions contain the given keyword (case-insensitive).
+     *
+     * @param keyword the search keyword
+     * @return a list of matching tasks in their current order
+     */
+    public ArrayList<Task> findTasks(String keyword) {
+        String lowerKeyword = keyword.toLowerCase();
+        ArrayList<Task> matches = new ArrayList<>();
+        for (Task task : tasks) {
+            if (task.getDescription().toLowerCase().contains(lowerKeyword)) {
+                matches.add(task);
+            }
+        }
+        return matches;
+    }
+
+    /**
      * Returns a formatted string representation of all tasks.
      * Each task is numbered starting from 1.
      *
