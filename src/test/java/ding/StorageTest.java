@@ -1,14 +1,9 @@
 package ding;
 
-import ding.exceptions.DingException;
-import ding.tasks.DeadlineTask;
-import ding.tasks.EventTask;
-import ding.tasks.Task;
-import ding.tasks.TodoTask;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.AfterEach;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -17,7 +12,16 @@ import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+
+import ding.exceptions.DingException;
+import ding.tasks.DeadlineTask;
+import ding.tasks.EventTask;
+import ding.tasks.Task;
+import ding.tasks.TodoTask;
 
 public class StorageTest {
     private static final Path TEST_FILE = Paths.get("data", "test_ding.txt");
