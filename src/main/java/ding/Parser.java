@@ -1,9 +1,11 @@
 package ding;
 
+import ding.commands.Command;
 import ding.commands.DeadlineCommand;
 import ding.commands.DeleteCommand;
 import ding.commands.EventCommand;
 import ding.commands.ExitCommand;
+import ding.commands.FindCommand;
 import ding.commands.ListCommand;
 import ding.commands.MarkCommand;
 import ding.commands.TodoCommand;
