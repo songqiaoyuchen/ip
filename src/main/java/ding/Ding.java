@@ -7,8 +7,12 @@ import ding.tasks.Task;
 import ding.ui.Messages;
 import ding.ui.Ui;
 
+/**
+ * Main entry point for the Ding task management application.
+ * Initializes the user interface, loads tasks from storage, and handles
+ * the main command loop for user interactions.
+ */
 public class Ding {
-    
     public static void main(String[] args) {
         Ui ui = new Ui();
         ui.showWelcome();

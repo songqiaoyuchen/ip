@@ -1,5 +1,10 @@
 package ding;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 import ding.commands.Command;
 import ding.commands.DeadlineCommand;
 import ding.commands.DeleteCommand;
@@ -11,11 +16,11 @@ import ding.commands.MarkCommand;
 import ding.commands.TodoCommand;
 import ding.commands.UnmarkCommand;
 import ding.exceptions.DingException;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 
+/**
+ * Parses user input and converts it into corresponding Command objects.
+ * Handles various command types including todo, deadline, event, list, mark, and delete operations.
+ */
 public class Parser {
 
     /**
@@ -39,16 +44,16 @@ public class Parser {
         String args = parts.length > 1 ? parts[1] : "";
 
         return switch (keyword) {
-            case "bye"      -> new ExitCommand();
-            case "list"     -> new ListCommand();
-            case "mark"     -> new MarkCommand(parseIndex(args));
-            case "unmark"   -> new UnmarkCommand(parseIndex(args));
-            case "delete"   -> new DeleteCommand(parseIndex(args));
-            case "find"     -> new FindCommand(args);
-            case "todo"     -> parseTodo(args);
+            case "bye" -> new ExitCommand();
+            case "list" -> new ListCommand();
+            case "mark" -> new MarkCommand(parseIndex(args));
+            case "unmark" -> new UnmarkCommand(parseIndex(args));
+            case "delete" -> new DeleteCommand(parseIndex(args));
+            case "find" -> new FindCommand(args);
+            case "todo" -> parseTodo(args);
             case "deadline" -> parseDeadline(args);
-            case "event"    -> parseEvent(args);
-            default         -> throw new DingException("I'm sorry, I don't understand that yet.");
+            case "event" -> parseEvent(args);
+            default -> throw new DingException("I'm sorry, I don't understand that yet.");
         };
     }
 
@@ -108,8 +113,12 @@ public class Parser {
         // "/by " has length 4; start after that
         String by = rest.substring(byPos + 4).trim();
 
-        if (desc.isBlank()) throw new DingException("Your deadline needs a description! What's the task?");
-        if (by.isBlank()) throw new DingException("Don't forget when it's due! Add a /by date please.");
+        if (desc.isBlank()) {
+            throw new DingException("Your deadline needs a description! What's the task?");
+        }
+        if (by.isBlank()) {
+            throw new DingException("Don't forget when it's due! Add a /by date please.");
+        }
 
         LocalDateTime byDateTime = parseDateTime(by);
         return new DeadlineCommand(desc, byDateTime);
@@ -181,7 +190,9 @@ public class Parser {
         String from = rest.substring(fromPos + 6, toPos).trim();
         String to = rest.substring(toPos + 4).trim();
 
-        if (desc.isBlank()) throw new DingException("Your event needs a description! What's happening?");
+        if (desc.isBlank()) {
+            throw new DingException("Your event needs a description! What's happening?");
+        }
         if (from.isBlank() || to.isBlank()) {
             throw new DingException(
                 "I need to know when your event is! Add /from and /to times please.");

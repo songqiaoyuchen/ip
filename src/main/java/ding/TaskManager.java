@@ -6,6 +6,10 @@ import ding.exceptions.DingException;
 import ding.tasks.Task;
 import ding.ui.Messages;
 
+/**
+ * Manages a list of tasks and persists them to storage.
+ * Provides operations to add, delete, mark, find, and list tasks.
+ */
 public class TaskManager {
     private final ArrayList<Task> tasks;
     private final Storage storage;

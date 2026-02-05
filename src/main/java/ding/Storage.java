@@ -6,6 +6,10 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 import ding.exceptions.DingException;
@@ -13,150 +17,146 @@ import ding.tasks.DeadlineTask;
 import ding.tasks.EventTask;
 import ding.tasks.Task;
 import ding.tasks.TodoTask;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 
 /**
  * Handles reading and writing tasks to disk.
  */
 public class Storage {
-	private final Path filePath;
+    private final Path filePath;
 
-	/**
-	 * Constructs a Storage object with the default data file path (data/ding.txt).
-	 */
-	public Storage() {
-		this(Paths.get("data", "ding.txt"));
-	}
+    /**
+     * Constructs a Storage object with the default data file path (data/ding.txt).
+     */
+    public Storage() {
+        this(Paths.get("data", "ding.txt"));
+    }
 
-	/**
-	 * Constructs a Storage object with a custom file path.
-	 *
-	 * @param filePath the path to the storage file
-	 */
-	public Storage(Path filePath) {
-		this.filePath = filePath;
-	}
+    /**
+     * Constructs a Storage object with a custom file path.
+     *
+     * @param filePath the path to the storage file
+     */
+    public Storage(Path filePath) {
+        this.filePath = filePath;
+    }
 
-	/**
-	 * Loads all tasks from the storage file.
-	 * Creates the data directory if it does not exist.
-	 * Skips corrupted lines and continues loading remaining tasks.
-	 *
-	 * @return an ArrayList of Task objects loaded from storage
-	 * @throws DingException if a fatal error occurs while reading the file
-	 */
-	public ArrayList<Task> load() throws DingException {
-		createDataDirectories();
-		if (!Files.exists(filePath)) {
-			return new ArrayList<>();
-		}
+    /**
+     * Loads all tasks from the storage file.
+     * Creates the data directory if it does not exist.
+     * Skips corrupted lines and continues loading remaining tasks.
+     *
+     * @return an ArrayList of Task objects loaded from storage
+     * @throws DingException if a fatal error occurs while reading the file
+     */
+    public ArrayList<Task> load() throws DingException {
+        createDataDirectories();
+        if (!Files.exists(filePath)) {
+            return new ArrayList<>();
+        }
 
-		ArrayList<Task> tasks = new ArrayList<>();
-		try (BufferedReader reader = Files.newBufferedReader(filePath)) {
-			String line;
-			int lineNumber = 0;
-			while ((line = reader.readLine()) != null) {
-				lineNumber++;
-				if (line.isBlank()) {
-					continue;
-				}
-				try {
-					tasks.add(deserializeLine(line));
-				} catch (DingException e) {
-					// Skip corrupted lines but continue loading the rest.
-					System.err.println("Skipping corrupted entry at line " + lineNumber + ": " + e.getMessage());
-				}
-			}
-		} catch (IOException e) {
-			throw new DingException("Failed to load tasks from storage: " + e.getMessage());
-		}
-		return tasks;
-	}
+        ArrayList<Task> tasks = new ArrayList<>();
+        try (BufferedReader reader = Files.newBufferedReader(filePath)) {
+            String line;
+            int lineNumber = 0;
+            while ((line = reader.readLine()) != null) {
+                lineNumber++;
+                if (line.isBlank()) {
+                    continue;
+                }
+                try {
+                    tasks.add(deserializeLine(line));
+                } catch (DingException e) {
+                    // Skip corrupted lines but continue loading the rest.
+                    System.err.println("Skipping corrupted entry at line " + lineNumber + ": " + e.getMessage());
+                }
+            }
+        } catch (IOException e) {
+            throw new DingException("Failed to load tasks from storage: " + e.getMessage());
+        }
+        return tasks;
+    }
 
-	/**
-	 * Saves all tasks to the storage file.
-	 * Creates the data directory if it does not exist.
-	 * Overwrites the existing file with the current task list.
-	 *
-	 * @param tasks the ArrayList of Task objects to save
-	 * @throws DingException if an error occurs while writing to the file
-	 */
-	public void save(ArrayList<Task> tasks) throws DingException {
-		createDataDirectories();
-		try (BufferedWriter writer = Files.newBufferedWriter(filePath)) {
-			for (Task task : tasks) {
-				writer.write(task.serialize());
-				writer.newLine();
-			}
-		} catch (IOException e) {
-			throw new DingException("Failed to save tasks to storage: " + e.getMessage());
-		}
-	}
+    /**
+     * Saves all tasks to the storage file.
+     * Creates the data directory if it does not exist.
+     * Overwrites the existing file with the current task list.
+     *
+     * @param tasks the ArrayList of Task objects to save
+     * @throws DingException if an error occurs while writing to the file
+     */
+    public void save(ArrayList<Task> tasks) throws DingException {
+        createDataDirectories();
+        try (BufferedWriter writer = Files.newBufferedWriter(filePath)) {
+            for (Task task : tasks) {
+                writer.write(task.serialize());
+                writer.newLine();
+            }
+        } catch (IOException e) {
+            throw new DingException("Failed to save tasks to storage: " + e.getMessage());
+        }
+    }
 
-	private void createDataDirectories() throws DingException {
-		Path parent = filePath.getParent();
-		if (parent == null) {
-			return;
-		}
-		try {
-			Files.createDirectories(parent);
-		} catch (IOException e) {
-			throw new DingException("Unable to create data directory: " + e.getMessage());
-		}
-	}
+    private void createDataDirectories() throws DingException {
+        Path parent = filePath.getParent();
+        if (parent == null) {
+            return;
+        }
+        try {
+            Files.createDirectories(parent);
+        } catch (IOException e) {
+            throw new DingException("Unable to create data directory: " + e.getMessage());
+        }
+    }
 
-	private Task deserializeLine(String line) throws DingException {
-		String[] parts = line.split("\\s*\\|\\s*");
-		if (parts.length < 3) {
-			throw new DingException("Not enough fields in saved task");
-		}
+    private Task deserializeLine(String line) throws DingException {
+        String[] parts = line.split("\\s*\\|\\s*");
+        if (parts.length < 3) {
+            throw new DingException("Not enough fields in saved task");
+        }
 
-		String type = parts[0].trim();
-		boolean isDone = "1".equals(parts[1].trim());
-		String description = parts[2].trim();
+        String type = parts[0].trim();
+        boolean isDone = "1".equals(parts[1].trim());
+        String description = parts[2].trim();
 
-		return switch (type) {
-			case "T" -> new TodoTask(description, isDone);
-			case "D" -> deserializeDeadline(parts, isDone, description);
-			case "E" -> deserializeEvent(parts, isDone, description);
-			default -> throw new DingException("Unknown task type: " + type);
-		};
-	}
+        return switch (type) {
+            case "T" -> new TodoTask(description, isDone);
+            case "D" -> deserializeDeadline(parts, isDone, description);
+            case "E" -> deserializeEvent(parts, isDone, description);
+            default -> throw new DingException("Unknown task type: " + type);
+        };
+    }
 
-	private Task deserializeDeadline(
-        String[] parts, boolean isDone, String description) throws DingException {
-		if (parts.length < 4) {
-			throw new DingException("Deadline entry missing due date");
-		}
-		String by = parts[3].trim();
-		LocalDateTime parsedBy = parseStoredDateTime(by);
-		return new DeadlineTask(description, parsedBy, isDone);
-	}
+    private Task deserializeDeadline(
+            String[] parts, boolean isDone, String description) throws DingException {
+        if (parts.length < 4) {
+            throw new DingException("Deadline entry missing due date");
+        }
+        String by = parts[3].trim();
+        LocalDateTime parsedBy = parseStoredDateTime(by);
+        return new DeadlineTask(description, parsedBy, isDone);
+    }
 
-	private Task deserializeEvent(
-        String[] parts, boolean isDone, String description) throws DingException {
-		if (parts.length < 5) {
-			throw new DingException("Event entry missing from/to fields");
-		}
-		String from = parts[3].trim();
-		String to = parts[4].trim();
-		LocalDateTime parsedFrom = parseStoredDateTime(from);
-		LocalDateTime parsedTo = parseStoredDateTime(to);
-		return new EventTask(description, parsedFrom, parsedTo, isDone);
-	}
+    private Task deserializeEvent(
+            String[] parts, boolean isDone, String description) throws DingException {
+        if (parts.length < 5) {
+            throw new DingException("Event entry missing from/to fields");
+        }
+        String from = parts[3].trim();
+        String to = parts[4].trim();
+        LocalDateTime parsedFrom = parseStoredDateTime(from);
+        LocalDateTime parsedTo = parseStoredDateTime(to);
+        return new EventTask(description, parsedFrom, parsedTo, isDone);
+    }
 
-	private LocalDateTime parseStoredDateTime(String value) throws DingException {
-		try {
-			return LocalDateTime.parse(value, DateTimeFormatter.ISO_LOCAL_DATE_TIME);
-		} catch (DateTimeParseException e) {
-			try {
-				return LocalDate.parse(value, DateTimeFormatter.ISO_LOCAL_DATE).atStartOfDay();
-			} catch (DateTimeParseException ex) {
-				throw new DingException("Stored deadline has invalid date/time: " + value);
-			}
-		}
-	}
+    private LocalDateTime parseStoredDateTime(String value) throws DingException {
+        try {
+            return LocalDateTime.parse(value, DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+        } catch (DateTimeParseException e) {
+            try {
+                return LocalDate.parse(value, DateTimeFormatter.ISO_LOCAL_DATE).atStartOfDay();
+            } catch (DateTimeParseException ex) {
+                throw new DingException("Stored deadline has invalid date/time: " + value);
+            }
+        }
+    }
 }
