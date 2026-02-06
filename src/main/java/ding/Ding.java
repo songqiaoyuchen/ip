@@ -5,42 +5,36 @@ import ding.commands.Command;
 import ding.exceptions.DingException;
 import ding.tasks.Task;
 import ding.ui.Messages;
-import ding.ui.Ui;
 
 /**
- * Main entry point for the Ding task management application.
- * Initializes the user interface, loads tasks from storage, and handles
- * the main command loop for user interactions.
+ * The main Ding class that initializes the application components and processes user input.
  */
 public class Ding {
-    public static void main(String[] args) {
-        Ui ui = new Ui();
-        ui.showWelcome();
+    private final TaskManager taskManager;
+    private final Parser parser;
 
+    /**
+     * Constructs a Ding instance, initializing storage, UI, parser, and task manager.
+     * @throws DingException if an error occurs while loading tasks from storage
+     */
+    public Ding() throws DingException {
         Storage storage = new Storage();
+        this.parser = new Parser();
         ArrayList<Task> initialTasks = new ArrayList<>();
-        try {
-            initialTasks = storage.load();
-        } catch (DingException e) {
-            ui.showError(String.format(Messages.ERROR_LOAD_TASKS, e.getMessage()));
-        }
-
-        TaskManager taskManager = new TaskManager(storage, initialTasks);
-        Parser parser = new Parser();
-        while (true) {
-            try {
-                String userInput = ui.readCommand();
-                Command command = parser.parse(userInput);
-                command.execute(taskManager, ui);
-                if (command.isExit()) {
-                    break;
-                }
-            } catch (DingException e) {
-                ui.showError(e.getMessage());
-            } finally {
-                ui.showLineBreak();
-            }
-        }
-        ui.close();
+        initialTasks = storage.load();
+        this.taskManager = new TaskManager(storage, initialTasks);
     }
+
+    /**
+     * Generates a response for the user's chat message.
+     */
+    public String getResponse(String input) {
+        try {
+            Command command = parser.parse(input);
+            return command.execute(taskManager);
+        } catch (DingException e) {
+            return String.format(Messages.ERROR_LOAD_TASKS, e.getMessage());
+        }
+    }
+
 }

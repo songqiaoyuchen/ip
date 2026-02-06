@@ -4,8 +4,10 @@ import ding.TaskManager;
 import ding.exceptions.DingException;
 import ding.tasks.Task;
 import ding.ui.Messages;
-import ding.ui.Ui;
 
+/**
+ * Command to mark a task as done in the task manager.
+ */
 public class MarkCommand extends Command {
     private int taskIndex;
 
@@ -22,13 +24,12 @@ public class MarkCommand extends Command {
      * Executes the mark command by marking the specified task as done.
      *
      * @param taskManager the TaskManager containing the task to mark
-     * @param ui the Ui object for displaying the confirmation
+     * @return a confirmation message of the marked task
      * @throws DingException if the task is not found or is already marked as done
      */
     @Override
-    public void execute(TaskManager taskManager, Ui ui) throws DingException {
+    public String execute(TaskManager taskManager) throws DingException {
         Task task = taskManager.markTaskDone(taskIndex);
-        ui.showMessage(String.format(Messages.TASK_MARKED_DONE, task.toString()));
-    }   
-    
+        return String.format(Messages.TASK_MARKED_DONE, task.toString());
+    }
 }

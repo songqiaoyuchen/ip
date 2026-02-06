@@ -2,18 +2,20 @@ package ding.commands;
 
 import ding.TaskManager;
 import ding.ui.Messages;
-import ding.ui.Ui;
 
+/**
+ * Command to exit the application.
+ */
 public class ExitCommand extends Command {
     /**
      * Executes the exit command by displaying a goodbye message.
      *
      * @param taskManager the TaskManager (unused)
-     * @param ui the Ui object for displaying the goodbye message
+     * @return a goodbye message
      */
     @Override
-    public void execute(TaskManager taskManager, Ui ui) {
-        ui.showMessage(Messages.GOODBYE);
+    public String execute(TaskManager taskManager) {
+        return Messages.GOODBYE;
     }
 
     /**

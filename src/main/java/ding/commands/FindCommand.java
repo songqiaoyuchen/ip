@@ -1,11 +1,11 @@
 package ding.commands;
 
+import java.util.ArrayList;
+
 import ding.TaskManager;
 import ding.exceptions.DingException;
 import ding.tasks.Task;
 import ding.ui.Messages;
-import ding.ui.Ui;
-import java.util.ArrayList;
 
 /**
  * Finds tasks whose descriptions contain the given keyword.
@@ -26,19 +26,18 @@ public class FindCommand extends Command {
      * Executes the find command by searching tasks and displaying the matches.
      *
      * @param taskManager the TaskManager containing tasks
-     * @param ui the Ui used to show messages
+     * @return a message listing the found tasks
      * @throws DingException if the keyword is empty
      */
     @Override
-    public void execute(TaskManager taskManager, Ui ui) throws DingException {
+    public String execute(TaskManager taskManager) throws DingException {
         if (keyword.isEmpty()) {
             throw new DingException("Please provide a keyword to search for.");
         }
 
         ArrayList<Task> matches = taskManager.findTasks(keyword);
         if (matches.isEmpty()) {
-            ui.showMessage(Messages.FIND_NO_MATCHES);
-            return;
+            return Messages.FIND_NO_MATCHES;
         }
 
         StringBuilder sb = new StringBuilder();
@@ -46,6 +45,6 @@ public class FindCommand extends Command {
             sb.append(i + 1).append('.').append(matches.get(i)).append("\n");
         }
         String message = String.format(Messages.FIND_RESULTS, sb.toString().stripTrailing());
-        ui.showMessage(message);
+        return message;
     }
 }

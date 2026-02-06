@@ -4,8 +4,10 @@ import ding.TaskManager;
 import ding.exceptions.DingException;
 import ding.tasks.Task;
 import ding.ui.Messages;
-import ding.ui.Ui;
 
+/**
+ * Command to unmark a task as done in the task manager.
+ */
 public class UnmarkCommand extends Command {
     private int taskIndex;
 
@@ -22,13 +24,12 @@ public class UnmarkCommand extends Command {
      * Executes the unmark command by marking the specified task as incomplete.
      *
      * @param taskManager the TaskManager containing the task to unmark
-     * @param ui the Ui object for displaying the confirmation
+     * @return a confirmation message of the unmarked task
      * @throws DingException if the task is not found or is already unmarked
      */
     @Override
-    public void execute(TaskManager taskManager, Ui ui) throws DingException {
+    public String execute(TaskManager taskManager) throws DingException {
         Task task = taskManager.markTaskUndone(taskIndex);
-        ui.showMessage(String.format(Messages.TASK_MARKED_UNDONE, task.toString()));
+        return String.format(Messages.TASK_MARKED_UNDONE, task.toString());
     }
-    
 }
