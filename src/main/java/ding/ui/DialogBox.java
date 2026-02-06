@@ -13,6 +13,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.shape.Circle;
 
 /**
  * Represents a dialog box consisting of an ImageView to represent the speaker's face
@@ -36,6 +37,8 @@ public class DialogBox extends HBox {
 
         dialog.setText(text);
         displayPicture.setImage(img);
+        double size = Math.min(displayPicture.getFitWidth(), displayPicture.getFitHeight());
+        displayPicture.setClip(new Circle(size / 2, size / 2, size / 2));
     }
 
     /**
@@ -55,6 +58,7 @@ public class DialogBox extends HBox {
     public static DialogBox getDingDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();
+        db.dialog.getStyleClass().add("reply-label");
         return db;
     }
 }
