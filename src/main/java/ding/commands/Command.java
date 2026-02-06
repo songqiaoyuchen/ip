@@ -12,7 +12,7 @@ public abstract class Command {
      * Executes the command with the given task manager and UI.
      *
      * @param taskManager the TaskManager to operate on
-     * @param ui the Ui object for displaying messages
+     * @return a message resulting from the command execution
      * @throws DingException if an error occurs during execution
      */
     public abstract String execute(TaskManager taskManager) throws DingException;

@@ -1,6 +1,7 @@
 package ding;
 
 import java.io.IOException;
+import java.util.Objects;
 
 import ding.exceptions.DingException;
 import ding.ui.MainWindow;
@@ -25,7 +26,8 @@ public class Main extends Application {
             Scene scene = new Scene(ap);
             stage.setScene(scene);
             stage.setTitle("Ding");
-            stage.getIcons().add(new Image(Main.class.getResourceAsStream("/images/pearl.png")));
+            stage.getIcons().add(new Image(Objects.requireNonNull(
+                    Main.class.getResourceAsStream("/images/pearl.png"))));
             MainWindow controller = fxmlLoader.<MainWindow>getController();
             try {
                 Ding ding = new Ding();

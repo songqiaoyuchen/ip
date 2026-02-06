@@ -3,6 +3,9 @@ package ding.commands;
 import ding.TaskManager;
 import ding.ui.Messages;
 
+/**
+ * Command to exit the application.
+ */
 public class ExitCommand extends Command {
     /**
      * Executes the exit command by displaying a goodbye message.

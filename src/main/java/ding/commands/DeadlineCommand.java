@@ -1,11 +1,15 @@
 package ding.commands;
 
-import ding.TaskManager;
-import ding.tasks.DeadlineTask;
-import ding.ui.Messages;
-import ding.exceptions.DingException;
 import java.time.LocalDateTime;
 
+import ding.TaskManager;
+import ding.exceptions.DingException;
+import ding.tasks.DeadlineTask;
+import ding.ui.Messages;
+
+/**
+ * Command to add a deadline task to the task manager.
+ */
 public class DeadlineCommand extends Command {
     private String description;
     private LocalDateTime by;
@@ -36,5 +40,4 @@ public class DeadlineCommand extends Command {
             + "\n" + String.format(Messages.TASK_COUNT, taskManager.getTaskCount());
         return message;
     }
-    
 }

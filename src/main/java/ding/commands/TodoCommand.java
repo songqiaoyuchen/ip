@@ -1,10 +1,13 @@
 package ding.commands;
 
 import ding.TaskManager;
+import ding.exceptions.DingException;
 import ding.tasks.TodoTask;
 import ding.ui.Messages;
-import ding.exceptions.DingException;
 
+/**
+ * Command to add a todo task to the task manager.
+ */
 public class TodoCommand extends Command {
     private String description;
 
@@ -32,5 +35,4 @@ public class TodoCommand extends Command {
             + "\n" + String.format(Messages.TASK_COUNT, taskManager.getTaskCount());
         return message;
     }
-    
 }

@@ -52,11 +52,9 @@ public class StorageTest {
     void load_directoryNotExists_createsDirectory() throws DingException {
         Path tempDir = Paths.get("data", "temp_test");
         Storage tempStorage = new Storage(tempDir.resolve("test.txt"));
-        
         ArrayList<Task> tasks = tempStorage.load();
         assertTrue(tasks.isEmpty());
         assertTrue(Files.exists(tempDir));
-        
         // Clean up
         try {
             Files.deleteIfExists(tempDir.resolve("test.txt"));
@@ -80,7 +78,6 @@ public class StorageTest {
         assertInstanceOf(TodoTask.class, loadedTasks.get(0));
         assertEquals("buy milk", loadedTasks.get(0).getDescription());
         assertFalse(loadedTasks.get(0).isDone());
-        
         assertInstanceOf(TodoTask.class, loadedTasks.get(1));
         assertEquals("walk dog", loadedTasks.get(1).getDescription());
         assertTrue(loadedTasks.get(1).isDone());

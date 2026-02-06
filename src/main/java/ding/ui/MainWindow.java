@@ -1,5 +1,7 @@
 package ding.ui;
 
+import java.util.Objects;
+
 import ding.Ding;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -24,8 +26,10 @@ public class MainWindow extends AnchorPane {
 
     private Ding ding;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/User.jpg"));
-    private Image dingImage = new Image(this.getClass().getResourceAsStream("/images/Ding.jpg"));
+    private final Image userImage = new Image(Objects.requireNonNull(
+            this.getClass().getResourceAsStream("/images/User.jpg")));
+    private final Image dingImage = new Image(Objects.requireNonNull(
+            this.getClass().getResourceAsStream("/images/Ding.jpg")));
 
     @FXML
     public void initialize() {

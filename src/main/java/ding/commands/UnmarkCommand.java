@@ -5,6 +5,9 @@ import ding.exceptions.DingException;
 import ding.tasks.Task;
 import ding.ui.Messages;
 
+/**
+ * Command to unmark a task as done in the task manager.
+ */
 public class UnmarkCommand extends Command {
     private int taskIndex;
 
@@ -29,5 +32,4 @@ public class UnmarkCommand extends Command {
         Task task = taskManager.markTaskUndone(taskIndex);
         return String.format(Messages.TASK_MARKED_UNDONE, task.toString());
     }
-    
 }

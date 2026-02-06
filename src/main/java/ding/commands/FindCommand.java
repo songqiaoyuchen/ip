@@ -1,10 +1,11 @@
 package ding.commands;
 
+import java.util.ArrayList;
+
 import ding.TaskManager;
 import ding.exceptions.DingException;
 import ding.tasks.Task;
 import ding.ui.Messages;
-import java.util.ArrayList;
 
 /**
  * Finds tasks whose descriptions contain the given keyword.

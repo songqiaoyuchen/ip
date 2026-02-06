@@ -1,11 +1,15 @@
 package ding.commands;
 
-import ding.TaskManager;
-import ding.tasks.EventTask;
-import ding.ui.Messages;
-import ding.exceptions.DingException;
 import java.time.LocalDateTime;
 
+import ding.TaskManager;
+import ding.exceptions.DingException;
+import ding.tasks.EventTask;
+import ding.ui.Messages;
+
+/**
+ * Command to add an event task to the task manager.
+ */
 public class EventCommand extends Command {
     private String description;
     private LocalDateTime from;
@@ -36,8 +40,7 @@ public class EventCommand extends Command {
         EventTask newEvent = new EventTask(description, from, to);
         taskManager.addTask(newEvent);
         String message = String.format(Messages.TASK_ADDED, newEvent)
-            + "\n" + String.format(Messages.TASK_COUNT, taskManager.getTaskCount());
+                + "\n" + String.format(Messages.TASK_COUNT, taskManager.getTaskCount());
         return message;
     }
-    
 }

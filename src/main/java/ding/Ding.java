@@ -7,10 +7,10 @@ import ding.tasks.Task;
 import ding.ui.Messages;
 
 /**
+ * The main Ding class that initializes the application components and processes user input.
  */
 public class Ding {
     private final TaskManager taskManager;
-    private final Storage storage;
     private final Parser parser;
 
     /**
@@ -18,7 +18,7 @@ public class Ding {
      * @throws DingException if an error occurs while loading tasks from storage
      */
     public Ding() throws DingException {
-        this.storage = new Storage();
+        Storage storage = new Storage();
         this.parser = new Parser();
         ArrayList<Task> initialTasks = new ArrayList<>();
         initialTasks = storage.load();

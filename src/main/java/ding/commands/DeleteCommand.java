@@ -4,8 +4,12 @@ import ding.TaskManager;
 import ding.exceptions.DingException;
 import ding.tasks.Task;
 import ding.ui.Messages;
+
+/**
+ * Command to delete a task from the task manager.
+ */
 public class DeleteCommand extends Command {
-    private int taskIndex;
+    private final int taskIndex;
 
     /**
      * Constructs a DeleteCommand with the index of the task to delete.
