@@ -37,6 +37,13 @@ public class MainWindow extends AnchorPane {
         ding = d;
     }
 
+    /** Shows startup errors when Ding fails to initialize. */
+    public void showStartupError(String message) {
+        dialogContainer.getChildren().add(
+                DialogBox.getDingDialog(message, dingImage)
+        );
+    }
+
     /**
      * Creates two dialog boxes, one echoing user input and the other containing Ding's reply and then appends them to
      * the dialog container. Clears the user input after processing.

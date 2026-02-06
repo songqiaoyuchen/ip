@@ -2,7 +2,6 @@ package ding.commands;
 
 import ding.TaskManager;
 import ding.exceptions.DingException;
-import ding.ui.Ui;
 
 /**
  * Abstract base class for all commands.
@@ -16,7 +15,7 @@ public abstract class Command {
      * @param ui the Ui object for displaying messages
      * @throws DingException if an error occurs during execution
      */
-    public abstract void execute(TaskManager taskManager, Ui ui) throws DingException;
+    public abstract String execute(TaskManager taskManager) throws DingException;
 
     /**
      * Checks if this command is an exit command.
