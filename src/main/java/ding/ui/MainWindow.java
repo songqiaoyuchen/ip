@@ -55,10 +55,18 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
+        if (input == null || input.trim().isEmpty()) {
+            dialogContainer.getChildren().add(
+                DialogBox.getDingDialog(Messages.ERROR_EMPTY_INPUT, dingImage)
+            );
+            userInput.clear();
+            return;
+        }
+
         String response = ding.getResponse(input);
         dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDingDialog(response, dingImage)
+            DialogBox.getUserDialog(input, userImage),
+            DialogBox.getDingDialog(response, dingImage)
         );
         userInput.clear();
     }

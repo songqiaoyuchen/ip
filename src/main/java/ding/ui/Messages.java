@@ -53,4 +53,26 @@ public class Messages {
             + "(Patience, my friend - let the bullet fly a little longer!)";
     public static final String ERROR_LOAD_TASKS = "I couldn't load your tasks from: %s\n"
             + "(Don't worry, we can start fresh! Even the clearest lake starts with a single drop.)";
+    public static final String ERROR_EMPTY_INPUT = "Please type something first, friend!";
+    public static final String ERROR_EMPTY_COMMAND = "Oops! I'm waiting for your command. Don't leave me hanging!";
+    public static final String ERROR_UNKNOWN_COMMAND = "I'm sorry, I don't understand that yet.";
+    public static final String ERROR_MISSING_TASK_INDEX = "Which task? Please tell me the task number!";
+    public static final String ERROR_INVALID_TASK_INDEX =
+            "Hmm, that doesn't look like a valid task number. Could you try again?";
+    public static final String ERROR_TODO_MISSING_DESCRIPTION =
+            "A todo without a description? That won't do! Tell me what you need to do.";
+    public static final String ERROR_DEADLINE_MISSING_BY =
+            "I'd love to add that deadline! Just use: deadline <description> /by <when>";
+    public static final String ERROR_DEADLINE_MISSING_DESCRIPTION =
+            "Your deadline needs a description! What's the task?";
+    public static final String ERROR_DEADLINE_MISSING_DATE =
+            "Don't forget when it's due! Add a /by date please.";
+    public static final String ERROR_INVALID_DATE_TIME =
+            "I couldn't understand that date/time. Try formats like 2019-12-02 1800 or 2/12/2019.";
+    public static final String ERROR_EVENT_MISSING_RANGE =
+            "Let me add that event for you! Just use: event <description> /from <start> /to <end>";
+    public static final String ERROR_EVENT_MISSING_DESCRIPTION =
+            "Your event needs a description! What's happening?";
+    public static final String ERROR_EVENT_MISSING_TIME_RANGE =
+            "I need to know when your event is! Add /from and /to times please.";
 }

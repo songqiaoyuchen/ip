@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import ding.commands.Command;
 import ding.exceptions.DingException;
 import ding.tasks.Task;
-import ding.ui.Messages;
 
 /**
  * The main Ding class that initializes the application components and processes user input.
@@ -33,7 +32,7 @@ public class Ding {
             Command command = parser.parse(input);
             return command.execute(taskManager);
         } catch (DingException e) {
-            return String.format(Messages.ERROR_LOAD_TASKS, e.getMessage());
+            return e.getMessage();
         }
     }
 

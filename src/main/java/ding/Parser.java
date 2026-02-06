@@ -16,6 +16,7 @@ import ding.commands.MarkCommand;
 import ding.commands.TodoCommand;
 import ding.commands.UnmarkCommand;
 import ding.exceptions.DingException;
+import ding.ui.Messages;
 
 /**
  * Parses user input and converts it into corresponding Command objects.
@@ -32,11 +33,11 @@ public class Parser {
      */
     public Command parse(String input) throws DingException {
         if (input == null) {
-            throw new DingException("Oops! I'm waiting for your command. Don't leave me hanging!");
+            throw new DingException(Messages.ERROR_EMPTY_COMMAND);
         }
         String trimmed = input.trim();
         if (trimmed.isEmpty()) {
-            throw new DingException("Oops! I'm waiting for your command. Don't leave me hanging!");
+            throw new DingException(Messages.ERROR_EMPTY_COMMAND);
         }
 
         String[] parts = trimmed.split("\\s+", 2);
@@ -53,7 +54,7 @@ public class Parser {
             case "todo" -> parseTodo(args);
             case "deadline" -> parseDeadline(args);
             case "event" -> parseEvent(args);
-            default -> throw new DingException("I'm sorry, I don't understand that yet.");
+            default -> throw new DingException(Messages.ERROR_UNKNOWN_COMMAND);
         };
     }
 
@@ -66,14 +67,13 @@ public class Parser {
      */
     private int parseIndex(String args) throws DingException {
         if (args.isBlank()) {
-            throw new DingException("Which task? Please tell me the task number!");
+            throw new DingException(Messages.ERROR_MISSING_TASK_INDEX);
         }
         try {
             int oneBased = Integer.parseInt(args.trim());
             return oneBased - 1;
         } catch (NumberFormatException e) {
-            throw new DingException(
-                "Hmm, that doesn't look like a valid task number. Could you try again?");
+            throw new DingException(Messages.ERROR_INVALID_TASK_INDEX);
         }
     }
 
@@ -86,8 +86,7 @@ public class Parser {
      */
     private TodoCommand parseTodo(String args) throws DingException {
         if (args.isBlank()) {
-            throw new DingException(
-                "A todo without a description? That won't do! Tell me what you need to do.");
+            throw new DingException(Messages.ERROR_TODO_MISSING_DESCRIPTION);
         }
         return new TodoCommand(args.trim());
     }
@@ -105,8 +104,7 @@ public class Parser {
         String rest = args.trim();
         int byPos = rest.toLowerCase().indexOf("/by ");
         if (byPos == -1) {
-            throw new DingException(
-                "I'd love to add that deadline! Just use: deadline <description> /by <when>");
+            throw new DingException(Messages.ERROR_DEADLINE_MISSING_BY);
         }
 
         String desc = rest.substring(0, byPos).trim();
@@ -114,10 +112,10 @@ public class Parser {
         String by = rest.substring(byPos + 4).trim();
 
         if (desc.isBlank()) {
-            throw new DingException("Your deadline needs a description! What's the task?");
+            throw new DingException(Messages.ERROR_DEADLINE_MISSING_DESCRIPTION);
         }
         if (by.isBlank()) {
-            throw new DingException("Don't forget when it's due! Add a /by date please.");
+            throw new DingException(Messages.ERROR_DEADLINE_MISSING_DATE);
         }
 
         LocalDateTime byDateTime = parseDateTime(by);
@@ -164,8 +162,7 @@ public class Parser {
             }
         }
 
-        throw new DingException(
-            "I couldn't understand that date/time. Try formats like 2019-12-02 1800 or 2/12/2019.");
+        throw new DingException(Messages.ERROR_INVALID_DATE_TIME);
     }
 
     /**
@@ -182,8 +179,7 @@ public class Parser {
         int fromPos = rest.toLowerCase().indexOf("/from ");
         int toPos = rest.toLowerCase().indexOf("/to ");
         if (fromPos == -1 || toPos == -1 || toPos < fromPos) {
-            throw new DingException(
-                "Let me add that event for you! Just use: event <description> /from <start> /to <end>");
+            throw new DingException(Messages.ERROR_EVENT_MISSING_RANGE);
         }
 
         String desc = rest.substring(0, fromPos).trim();
@@ -191,11 +187,10 @@ public class Parser {
         String to = rest.substring(toPos + 4).trim();
 
         if (desc.isBlank()) {
-            throw new DingException("Your event needs a description! What's happening?");
+            throw new DingException(Messages.ERROR_EVENT_MISSING_DESCRIPTION);
         }
         if (from.isBlank() || to.isBlank()) {
-            throw new DingException(
-                "I need to know when your event is! Add /from and /to times please.");
+            throw new DingException(Messages.ERROR_EVENT_MISSING_TIME_RANGE);
         }
 
         LocalDateTime fromDateTime = parseDateTime(from);
