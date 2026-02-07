@@ -1,5 +1,6 @@
 package ding;
 import java.util.ArrayList;
+import java.util.List;
 
 import ding.commands.Command;
 import ding.exceptions.DingException;
@@ -11,6 +12,7 @@ import ding.tasks.Task;
 public class Ding {
     private final TaskManager taskManager;
     private final Parser parser;
+    private final List<String> startupWarnings;
 
     /**
      * Constructs a Ding instance, initializing storage, UI, parser, and task manager.
@@ -19,9 +21,17 @@ public class Ding {
     public Ding() throws DingException {
         Storage storage = new Storage();
         this.parser = new Parser();
-        ArrayList<Task> initialTasks = new ArrayList<>();
-        initialTasks = storage.load();
+        ArrayList<String> warnings = new ArrayList<>();
+        ArrayList<Task> initialTasks = storage.load(warnings);
+        this.startupWarnings = warnings;
         this.taskManager = new TaskManager(storage, initialTasks);
+    }
+
+    /**
+     * Returns non-fatal warnings collected during startup.
+     */
+    public List<String> getStartupWarnings() {
+        return new ArrayList<>(startupWarnings);
     }
 
     /**
