@@ -47,6 +47,7 @@ public class Main extends Application {
         try {
             Ding ding = new Ding();
             controller.setDing(ding);
+            controller.showStartupWarnings(ding.getStartupWarnings());
         } catch (DingException e) {
             controller.showStartupError(String.format(Messages.ERROR_LOAD_TASKS, e.getMessage()));
         }
