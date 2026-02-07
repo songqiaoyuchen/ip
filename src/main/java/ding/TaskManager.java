@@ -40,6 +40,7 @@ public class TaskManager {
      * @return the total count of tasks
      */
     public int getTaskCount() {
+        assert tasks != null : "Tasks list should not be null.";
         return tasks.size();
     }
 
@@ -50,6 +51,7 @@ public class TaskManager {
      * @throws DingException if an error occurs while saving to storage
      */
     public void addTask(Task task) throws DingException {
+        assert task != null : "Task to add should not be null.";
         tasks.add(task);
         persist();
     }
@@ -78,6 +80,7 @@ public class TaskManager {
      */
     public Task markTaskDone(int index) throws DingException {
         Task task = this.getTask(index);
+        assert task != null : "Task to mark done should not be null.";
         if (task.isDone()) {
             throw new DingException(Messages.ERROR_TASK_ALREADY_DONE);
         }
@@ -95,6 +98,7 @@ public class TaskManager {
      */
     public Task markTaskUndone(int index) throws DingException {
         Task task = this.getTask(index);
+        assert task != null : "Task to mark undone should not be null.";
         if (!task.isDone()) {
             throw new DingException(Messages.ERROR_TASK_ALREADY_UNDONE);
         }
@@ -110,6 +114,7 @@ public class TaskManager {
      * @throws DingException if the task is not found
      */
     public void deleteTask(int index) throws DingException {
+        assert tasks != null : "Tasks list should not be null.";
         Task task = this.getTask(index);
         tasks.remove(task);
         persist();
@@ -122,6 +127,7 @@ public class TaskManager {
      * @return a list of matching tasks in their current order
      */
     public ArrayList<Task> findTasks(String keyword) {
+        assert keyword != null : "Search keyword should not be null.";
         String lowerKeyword = keyword.toLowerCase();
         ArrayList<Task> matches = new ArrayList<>();
         for (Task task : tasks) {

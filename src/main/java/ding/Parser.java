@@ -71,6 +71,7 @@ public class Parser {
         }
         try {
             int oneBased = Integer.parseInt(args.trim());
+            assert oneBased >= 1 : "Task index must be >= 1.";   
             return oneBased - 1;
         } catch (NumberFormatException e) {
             throw new DingException(Messages.ERROR_INVALID_TASK_INDEX);
