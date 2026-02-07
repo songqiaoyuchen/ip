@@ -1,5 +1,6 @@
 package ding.ui;
 
+import java.util.List;
 import java.util.Objects;
 
 import ding.Ding;
@@ -46,6 +47,19 @@ public class MainWindow extends AnchorPane {
         dialogContainer.getChildren().add(
                 DialogBox.getDingDialog(message, dingImage)
         );
+    }
+
+    /** Shows non-fatal startup warnings after initialization. */
+    public void showStartupWarnings(List<String> warnings) {
+        if (warnings == null || warnings.isEmpty()) {
+            return;
+        }
+        
+        for (String warning : warnings) {
+            dialogContainer.getChildren().add(
+                    DialogBox.getDingDialog(warning, dingImage)
+            );
+        }
     }
 
     /**

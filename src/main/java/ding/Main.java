@@ -17,27 +17,39 @@ import javafx.stage.Stage;
  * A GUI for Ding using FXML.
  */
 public class Main extends Application {
+    private static final String TITLE = "Ding";
+    private static final String ICON_PATH = "/images/pearl.png";
+    private static final String MAIN_WINDOW_FXML_PATH = "/view/MainWindow.fxml";
 
     @Override
     public void start(Stage stage) {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
-            AnchorPane ap = fxmlLoader.load();
-            Scene scene = new Scene(ap);
-            stage.setScene(scene);
-            stage.setTitle("Ding");
-            stage.getIcons().add(new Image(Objects.requireNonNull(
-                    Main.class.getResourceAsStream("/images/pearl.png"))));
-            MainWindow controller = fxmlLoader.<MainWindow>getController();
-            try {
-                Ding ding = new Ding();
-                controller.setDing(ding);
-            } catch (DingException e) {
-                controller.showStartupError(String.format(Messages.ERROR_LOAD_TASKS, e.getMessage()));
-            }
+            MainWindow controller = initStage(stage);
+            initDing(controller);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    private MainWindow initStage(Stage stage) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource(MAIN_WINDOW_FXML_PATH));
+        AnchorPane ap = fxmlLoader.load();
+        Scene scene = new Scene(ap);
+        stage.setScene(scene);
+        stage.setTitle(TITLE);
+        stage.getIcons().add(new Image(Objects.requireNonNull(
+                Main.class.getResourceAsStream(ICON_PATH))));
+        return fxmlLoader.<MainWindow>getController();
+    }
+    
+    private void initDing(MainWindow controller) {
+        try {
+            Ding ding = new Ding();
+            controller.setDing(ding);
+            controller.showStartupWarnings(ding.getStartupWarnings());
+        } catch (DingException e) {
+            controller.showStartupError(String.format(Messages.ERROR_LOAD_TASKS, e.getMessage()));
         }
     }
 }
