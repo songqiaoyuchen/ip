@@ -1,6 +1,7 @@
 package ding;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 import ding.exceptions.DingException;
 import ding.tasks.Task;
@@ -129,13 +130,9 @@ public class TaskManager {
     public ArrayList<Task> findTasks(String keyword) {
         assert keyword != null : "Search keyword should not be null.";
         String lowerKeyword = keyword.toLowerCase();
-        ArrayList<Task> matches = new ArrayList<>();
-        for (Task task : tasks) {
-            if (task.getDescription().toLowerCase().contains(lowerKeyword)) {
-                matches.add(task);
-            }
-        }
-        return matches;
+        return tasks.stream()
+                .filter(task -> task.getDescription().toLowerCase().contains(lowerKeyword))
+                .collect(Collectors.toCollection(ArrayList::new));
     }
 
     /**
