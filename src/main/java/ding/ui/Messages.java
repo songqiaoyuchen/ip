@@ -75,4 +75,24 @@ public class Messages {
             "Your event needs a description! What's happening?";
     public static final String ERROR_EVENT_MISSING_TIME_RANGE =
             "I need to know when your event is! Add /from and /to times please.";
+
+    // Error messages - Storage
+    public static final String ERROR_STORAGE_SKIP_LINE =
+            "Skipping corrupted entry at line %d: %s";
+    public static final String ERROR_STORAGE_LOAD_FAILED =
+            "Failed to load tasks from storage: %s";
+    public static final String ERROR_STORAGE_SAVE_FAILED =
+            "Failed to save tasks to storage: %s";
+    public static final String ERROR_STORAGE_CREATE_DIR_FAILED =
+            "Unable to create data directory: %s";
+    public static final String ERROR_STORAGE_MISSING_FIELDS =
+            "Not enough fields in saved task";
+    public static final String ERROR_STORAGE_UNKNOWN_TASK_TYPE =
+            "Unknown task type: %s";
+    public static final String ERROR_STORAGE_DEADLINE_MISSING_BY =
+            "Deadline entry missing due date";
+    public static final String ERROR_STORAGE_EVENT_MISSING_RANGE =
+            "Event entry missing from/to fields";
+    public static final String ERROR_STORAGE_INVALID_DATE_TIME =
+            "Stored deadline has invalid date/time: %s";
 }

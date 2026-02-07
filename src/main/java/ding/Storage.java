@@ -11,8 +11,10 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.List;
 
 import ding.exceptions.DingException;
+import ding.ui.Messages;
 import ding.tasks.DeadlineTask;
 import ding.tasks.EventTask;
 import ding.tasks.Task;
@@ -49,6 +51,19 @@ public class Storage {
      * @throws DingException if a fatal error occurs while reading the file
      */
     public ArrayList<Task> load() throws DingException {
+        return load(null);
+    }
+
+    /**
+     * Loads all tasks from the storage file and collects warnings for corrupted lines.
+     * Creates the data directory if it does not exist.
+     * Skips corrupted lines and continues loading remaining tasks.
+     *
+     * @param warnings optional list to collect warning messages
+     * @return an ArrayList of Task objects loaded from storage
+     * @throws DingException if a fatal error occurs while reading the file
+     */
+    public ArrayList<Task> load(List<String> warnings) throws DingException {
         createDataDirectories();
         if (!Files.exists(filePath)) {
             return new ArrayList<>();
@@ -63,15 +78,10 @@ public class Storage {
                 if (line.isBlank()) {
                     continue;
                 }
-                try {
-                    tasks.add(deserializeLine(line));
-                } catch (DingException e) {
-                    // Skip corrupted lines but continue loading the rest.
-                    System.err.println("Skipping corrupted entry at line " + lineNumber + ": " + e.getMessage());
-                }
+                addTaskFromLine(line, lineNumber, tasks, warnings);
             }
         } catch (IOException e) {
-            throw new DingException("Failed to load tasks from storage: " + e.getMessage());
+            throw new DingException(String.format(Messages.ERROR_STORAGE_LOAD_FAILED, e.getMessage()));
         }
         return tasks;
     }
@@ -92,7 +102,7 @@ public class Storage {
                 writer.newLine();
             }
         } catch (IOException e) {
-            throw new DingException("Failed to save tasks to storage: " + e.getMessage());
+            throw new DingException(String.format(Messages.ERROR_STORAGE_SAVE_FAILED, e.getMessage()));
         }
     }
 
@@ -104,14 +114,14 @@ public class Storage {
         try {
             Files.createDirectories(parent);
         } catch (IOException e) {
-            throw new DingException("Unable to create data directory: " + e.getMessage());
+            throw new DingException(String.format(Messages.ERROR_STORAGE_CREATE_DIR_FAILED, e.getMessage()));
         }
     }
 
     private Task deserializeLine(String line) throws DingException {
         String[] parts = line.split("\\s*\\|\\s*");
         if (parts.length < 3) {
-            throw new DingException("Not enough fields in saved task");
+            throw new DingException(Messages.ERROR_STORAGE_MISSING_FIELDS);
         }
 
         String type = parts[0].trim();
@@ -122,14 +132,14 @@ public class Storage {
             case "T" -> new TodoTask(description, isDone);
             case "D" -> deserializeDeadline(parts, isDone, description);
             case "E" -> deserializeEvent(parts, isDone, description);
-            default -> throw new DingException("Unknown task type: " + type);
+            default -> throw new DingException(String.format(Messages.ERROR_STORAGE_UNKNOWN_TASK_TYPE, type));
         };
     }
 
     private Task deserializeDeadline(
             String[] parts, boolean isDone, String description) throws DingException {
         if (parts.length < 4) {
-            throw new DingException("Deadline entry missing due date");
+            throw new DingException(Messages.ERROR_STORAGE_DEADLINE_MISSING_BY);
         }
         String by = parts[3].trim();
         LocalDateTime parsedBy = parseStoredDateTime(by);
@@ -139,7 +149,7 @@ public class Storage {
     private Task deserializeEvent(
             String[] parts, boolean isDone, String description) throws DingException {
         if (parts.length < 5) {
-            throw new DingException("Event entry missing from/to fields");
+            throw new DingException(Messages.ERROR_STORAGE_EVENT_MISSING_RANGE);
         }
         String from = parts[3].trim();
         String to = parts[4].trim();
@@ -155,7 +165,23 @@ public class Storage {
             try {
                 return LocalDate.parse(value, DateTimeFormatter.ISO_LOCAL_DATE).atStartOfDay();
             } catch (DateTimeParseException ex) {
-                throw new DingException("Stored deadline has invalid date/time: " + value);
+                throw new DingException(String.format(Messages.ERROR_STORAGE_INVALID_DATE_TIME, value));
+            }
+        }
+    }
+    
+    private void addTaskFromLine(
+            String line,
+            int lineNumber,
+            ArrayList<Task> tasks,
+            List<String> warnings) {
+        try {
+            tasks.add(deserializeLine(line));
+        } catch (DingException e) {
+            // Skip corrupted lines but continue loading the rest.
+            String message = String.format(Messages.ERROR_STORAGE_SKIP_LINE, lineNumber, e.getMessage());
+            if (warnings != null) {
+                warnings.add(message);
             }
         }
     }
