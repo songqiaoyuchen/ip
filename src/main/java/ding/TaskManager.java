@@ -122,6 +122,20 @@ public class TaskManager {
     }
 
     /**
+     * Inserts a task at the specified index and persists the change.
+     *
+     * @param index the zero-based index to insert at
+     * @param task the Task object to insert
+     * @throws DingException if the index is out of bounds
+     */
+    public void insertTask(int index, Task task) throws DingException {
+        assert task != null : "Task to insert should not be null.";
+        assert index >= 0 && index <= tasks.size() : "Insert index out of bounds.";
+        tasks.add(index, task);
+        persist();
+    }
+
+    /**
      * Finds tasks whose descriptions contain the given keyword (case-insensitive).
      *
      * @param keyword the search keyword

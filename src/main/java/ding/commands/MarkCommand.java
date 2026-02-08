@@ -8,7 +8,7 @@ import ding.ui.Messages;
 /**
  * Command to mark a task as done in the task manager.
  */
-public class MarkCommand extends Command {
+public class MarkCommand extends UndoableCommand {
     private int taskIndex;
 
     /**
@@ -31,5 +31,11 @@ public class MarkCommand extends Command {
     public String execute(TaskManager taskManager) throws DingException {
         Task task = taskManager.markTaskDone(taskIndex);
         return String.format(Messages.TASK_MARKED_DONE, task.toString());
+    }
+
+    @Override
+    public String undo(TaskManager taskManager) throws DingException {
+        Task task = taskManager.markTaskUndone(taskIndex);
+        return String.format(Messages.TASK_MARKED_UNDONE, task.toString());
     }
 }

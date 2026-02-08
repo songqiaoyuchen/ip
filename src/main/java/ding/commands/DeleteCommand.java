@@ -8,8 +8,9 @@ import ding.ui.Messages;
 /**
  * Command to delete a task from the task manager.
  */
-public class DeleteCommand extends Command {
+public class DeleteCommand extends UndoableCommand {
     private final int taskIndex;
+    private Task deletedTask;
 
     /**
      * Constructs a DeleteCommand with the index of the task to delete.
@@ -30,9 +31,20 @@ public class DeleteCommand extends Command {
     @Override
     public String execute(TaskManager taskManager) throws DingException {
         Task task = taskManager.getTask(taskIndex);
+        deletedTask = task;
         taskManager.deleteTask(taskIndex);
         String message = String.format(Messages.TASK_DELETED, task.toString())
             + "\n" + String.format(Messages.TASK_COUNT_AFTER_DELETE, taskManager.getTaskCount());
         return message;
+    }
+
+    @Override
+    public String undo(TaskManager taskManager) throws DingException {
+        if (deletedTask == null) {
+            throw new DingException(Messages.ERROR_TASK_NOT_FOUND);
+        }
+        taskManager.insertTask(taskIndex, deletedTask);
+        return String.format(Messages.TASK_ADDED, deletedTask)
+            + "\n" + String.format(Messages.TASK_COUNT, taskManager.getTaskCount());
     }
 }

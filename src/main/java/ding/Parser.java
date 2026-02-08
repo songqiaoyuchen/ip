@@ -13,7 +13,9 @@ import ding.commands.ExitCommand;
 import ding.commands.FindCommand;
 import ding.commands.ListCommand;
 import ding.commands.MarkCommand;
+import ding.commands.RedoCommand;
 import ding.commands.TodoCommand;
+import ding.commands.UndoCommand;
 import ding.commands.UnmarkCommand;
 import ding.exceptions.DingException;
 import ding.ui.Messages;
@@ -51,6 +53,8 @@ public class Parser {
             case "unmark" -> new UnmarkCommand(parseIndex(args));
             case "delete" -> new DeleteCommand(parseIndex(args));
             case "find" -> new FindCommand(args);
+            case "undo" -> new UndoCommand();
+            case "redo" -> new RedoCommand();
             case "todo" -> parseTodo(args);
             case "deadline" -> parseDeadline(args);
             case "event" -> parseEvent(args);

@@ -75,6 +75,10 @@ public class Messages {
             "Your event needs a description! What's happening?";
     public static final String ERROR_EVENT_MISSING_TIME_RANGE =
             "I need to know when your event is! Add /from and /to times please.";
+    public static final String ERROR_NOTHING_TO_UNDO =
+            "Nothing to undo yet. Try doing something first!";
+    public static final String ERROR_NOTHING_TO_REDO =
+            "Nothing to redo yet. You're already at the latest step!";
 
     // Error messages - Storage
     public static final String ERROR_STORAGE_SKIP_LINE =
