@@ -5,6 +5,7 @@ import java.util.Objects;
 
 import ding.Ding;
 import ding.exceptions.DingException;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -37,6 +38,11 @@ public class MainWindow extends AnchorPane {
     /** Injects the Ding instance */
     public void setDing(Ding d) {
         ding = d;
+    }
+
+    @FXML
+    public void initialize() {
+        sendButton.disableProperty().bind(userInput.textProperty().isEmpty());
     }
 
     /** Shows startup errors when Ding fails to initialize. */
@@ -87,6 +93,10 @@ public class MainWindow extends AnchorPane {
             );
         }
         userInput.clear();
+
+        // fix mouse scrolling issue with auto scroll
+        // @author https://github.com/NUS-CS2103-AY2526-S2/forum/issues/157
+        Platform.runLater(() -> scrollPane.setVvalue(1.0));
     }
 }
 
