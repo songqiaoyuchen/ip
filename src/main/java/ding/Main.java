@@ -20,6 +20,8 @@ public class Main extends Application {
     private static final String TITLE = "Ding";
     private static final String ICON_PATH = "/images/pearl.png";
     private static final String MAIN_WINDOW_FXML_PATH = "/view/MainWindow.fxml";
+    private static final double MIN_WIDTH = 400.0;
+    private static final double MIN_HEIGHT = 600.0;
 
     @Override
     public void start(Stage stage) {
@@ -38,6 +40,8 @@ public class Main extends Application {
         Scene scene = new Scene(ap);
         stage.setScene(scene);
         stage.setTitle(TITLE);
+        stage.setMinWidth(MIN_WIDTH);
+        stage.setMinHeight(MIN_HEIGHT);
         stage.getIcons().add(new Image(Objects.requireNonNull(
                 Main.class.getResourceAsStream(ICON_PATH))));
         return fxmlLoader.<MainWindow>getController();

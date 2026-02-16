@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Objects;
 
 import ding.Ding;
+import ding.exceptions.DingException;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -30,12 +31,8 @@ public class MainWindow extends AnchorPane {
     private final Image userImage = new Image(Objects.requireNonNull(
             this.getClass().getResourceAsStream("/images/User.jpg")));
     private final Image dingImage = new Image(Objects.requireNonNull(
-            this.getClass().getResourceAsStream("/images/Ding.jpg")));
-
-    @FXML
-    public void initialize() {
-        scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
-    }
+            this.getClass().getResourceAsStream("/images/Ding.jpg")), 
+                    112, 112, true, true);
 
     /** Injects the Ding instance */
     public void setDing(Ding d) {
@@ -45,7 +42,7 @@ public class MainWindow extends AnchorPane {
     /** Shows startup errors when Ding fails to initialize. */
     public void showStartupError(String message) {
         dialogContainer.getChildren().add(
-                DialogBox.getDingDialog(message, dingImage)
+                DialogBox.getErrorDialog(message, dingImage)
         );
     }
 
@@ -71,17 +68,24 @@ public class MainWindow extends AnchorPane {
         String input = userInput.getText();
         if (input == null || input.trim().isEmpty()) {
             dialogContainer.getChildren().add(
-                DialogBox.getDingDialog(Messages.ERROR_EMPTY_INPUT, dingImage)
+                DialogBox.getErrorDialog(Messages.ERROR_EMPTY_INPUT, dingImage)
             );
             userInput.clear();
             return;
         }
 
-        String response = ding.getResponse(input);
-        dialogContainer.getChildren().addAll(
-            DialogBox.getUserDialog(input, userImage),
-            DialogBox.getDingDialog(response, dingImage)
-        );
+        try {
+            String response = ding.getResponse(input);
+            dialogContainer.getChildren().addAll(
+                DialogBox.getUserDialog(input, userImage),
+                DialogBox.getDingDialog(response, dingImage)
+            );
+        } catch (DingException e) {
+            dialogContainer.getChildren().addAll(
+                DialogBox.getUserDialog(input, userImage),
+                DialogBox.getErrorDialog(e.getMessage(), dingImage)
+            );
+        }
         userInput.clear();
     }
 }

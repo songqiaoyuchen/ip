@@ -45,29 +45,25 @@ public class Ding {
     /**
      * Generates a response for the user's chat message.
      */
-    public String getResponse(String input) {
-        try {
-            Command command = parser.parse(input);
-            
-            // Handle undo and redo commands
-            if (command instanceof UndoCommand) {
-                return handleUndo();
-            }
-            if (command instanceof RedoCommand) {
-                return handleRedo();
-            }
+    public String getResponse(String input) throws DingException {
+        Command command = parser.parse(input);
 
-            String response = command.execute(taskManager);
-
-            // Maintain undo/redo stacks for undoable commands
-            if (command instanceof UndoableCommand) {
-                undoStack.push((UndoableCommand) command);
-                redoStack.clear();
-            }
-            return response;
-        } catch (DingException e) {
-            return e.getMessage();
+        // Handle undo and redo commands
+        if (command instanceof UndoCommand) {
+            return handleUndo();
         }
+        if (command instanceof RedoCommand) {
+            return handleRedo();
+        }
+
+        String response = command.execute(taskManager);
+
+        // Maintain undo/redo stacks for undoable commands
+        if (command instanceof UndoableCommand) {
+            undoStack.push((UndoableCommand) command);
+            redoStack.clear();
+        }
+        return response;
     }
 
     private String handleUndo() throws DingException {
