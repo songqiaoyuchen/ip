@@ -170,7 +170,7 @@ A: You can, but be careful! The file is in a specific format. Incorrect edits ma
 A: Copy the `data/ding.txt` file to the other computer in the same location relative to the jar file.
 
 **Q: What if I make a mistake?**
-A: Use the `undo` command to revert your most recent action, then `redo` to restore it if needed.
+A: Use the `undo` command to revert your most recent action, then `redo` to restore it if needed../gradlew shadowJar
 
 ---
 
