@@ -53,50 +53,56 @@ public class Messages {
             + "(Patience, my friend - let the bullet fly a little longer!)";
     public static final String ERROR_LOAD_TASKS = "I couldn't load your tasks from: %s\n"
             + "(Don't worry, we can start fresh! Even the clearest lake starts with a single drop.)";
-    public static final String ERROR_EMPTY_INPUT = "Please type something first, friend!";
-    public static final String ERROR_EMPTY_COMMAND = "Oops! I'm waiting for your command. Don't leave me hanging!";
-    public static final String ERROR_UNKNOWN_COMMAND = "I'm sorry, I don't understand that yet.";
-    public static final String ERROR_MISSING_TASK_INDEX = "Which task? Please tell me the task number!";
+    public static final String ERROR_EMPTY_INPUT = "Don't leave me hanging, friend! "
+            + "Tell me what you'd like to do.";
+    public static final String ERROR_EMPTY_COMMAND = "Oops! A command without words? "
+            + "(That's like Pearl trying to trot without legs! Give me something to work with.)";
+    public static final String ERROR_UNKNOWN_COMMAND = "I'm still learning your ways, friend. "
+            + "(That command isn't in my Highland vocabulary yet!)";
+    public static final String ERROR_MISSING_TASK_INDEX = "Which task catches your eye? Tell me the number, friend!";
     public static final String ERROR_INVALID_TASK_INDEX =
-            "Hmm, that doesn't look like a valid task number. Could you try again?";
+            "That task number doesn't match any in my notebook. The path gets steep sometimes - "
+            + "(Let's try a number between 1 and your list size!)";
     public static final String ERROR_TODO_MISSING_DESCRIPTION =
-            "A todo without a description? That won't do! Tell me what you need to do.";
+            "A task without a name? Even Pearl has a purpose! What do you need to do?";
     public static final String ERROR_DEADLINE_MISSING_BY =
             "I'd love to add that deadline! Just use: deadline <description> /by <when>";
     public static final String ERROR_DEADLINE_MISSING_DESCRIPTION =
-            "Your deadline needs a description! What's the task?";
+            "A deadline without a task? That's like saying 'the snow will melt' without saying when! "
+            + "What's the deadline for?";
     public static final String ERROR_DEADLINE_MISSING_DATE =
-            "Don't forget when it's due! Add a /by date please.";
+            "When will this mountain be climbed? Tell me the /by date, friend!";
     public static final String ERROR_INVALID_DATE_TIME =
             "I couldn't understand that date/time. Try formats like 2019-12-02 1800 or 2/12/2019.";
     public static final String ERROR_EVENT_MISSING_RANGE =
             "Let me add that event for you! Just use: event <description> /from <start> /to <end>";
     public static final String ERROR_EVENT_MISSING_DESCRIPTION =
-            "Your event needs a description! What's happening?";
+            "An event without a story? Even the smallest gathering in the Highlands has a tale! "
+            + "What's this event about?";
     public static final String ERROR_EVENT_MISSING_TIME_RANGE =
-            "I need to know when your event is! Add /from and /to times please.";
+            "When does this adventure happen? Use /from and /to to mark your trail through time!";
     public static final String ERROR_NOTHING_TO_UNDO =
-            "Nothing to undo yet. Try doing something first!";
+            "The past is carved in stone, friend! Make a move first, then we can unwind the trail.";
     public static final String ERROR_NOTHING_TO_REDO =
-            "Nothing to redo yet. You're already at the latest step!";
+            "The future is yet unwritten! Undo something first if you'd like to walk that path again.";
 
     // Error messages - Storage
     public static final String ERROR_STORAGE_SKIP_LINE =
-            "Skipping corrupted entry at line %d: %s";
+            "(Line %d got corrupted like a worn old trail map! Skipping: %s)";
     public static final String ERROR_STORAGE_LOAD_FAILED =
-            "Failed to load tasks from storage: %s";
+            "The notebook pages scattered in the wind! Failed to load tasks: %s";
     public static final String ERROR_STORAGE_SAVE_FAILED =
-            "Failed to save tasks to storage: %s";
+            "Pearl knocked over the ink! Failed to save tasks: %s";
     public static final String ERROR_STORAGE_CREATE_DIR_FAILED =
-            "Unable to create data directory: %s";
+            "Can't find the clearing for the notebook: %s";
     public static final String ERROR_STORAGE_MISSING_FIELDS =
-            "Not enough fields in saved task";
+            "This page in my notebook is missing pieces - some fields are blank!";
     public static final String ERROR_STORAGE_UNKNOWN_TASK_TYPE =
-            "Unknown task type: %s";
+            "I found a strange marking in my notebook: %s - haven't seen this type of task before!";
     public static final String ERROR_STORAGE_DEADLINE_MISSING_BY =
-            "Deadline entry missing due date";
+            "A deadline without a due date? Even mountains have seasons when snow falls!";
     public static final String ERROR_STORAGE_EVENT_MISSING_RANGE =
-            "Event entry missing from/to fields";
+            "An event with no start or end? That's like a journey without knowing when to leave!";
     public static final String ERROR_STORAGE_INVALID_DATE_TIME =
-            "Stored deadline has invalid date/time: %s";
+            "The date marks on this task are faded and unreadable: %s - can't decipher it!";
 }
