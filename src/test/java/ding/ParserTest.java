@@ -2,6 +2,7 @@ package ding;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -18,6 +19,7 @@ import ding.commands.MarkCommand;
 import ding.commands.TodoCommand;
 import ding.commands.UnmarkCommand;
 import ding.exceptions.DingException;
+import ding.ui.Messages;
 
 public class ParserTest {
     private final Parser parser = new Parser();
@@ -26,21 +28,21 @@ public class ParserTest {
     @DisplayName("null input throws DingException")
     void parse_nullInput_throws() {
         DingException ex = assertThrows(DingException.class, () -> parser.parse(null));
-        assertTrue(ex.getMessage().contains("waiting for your command"));
+        assertEquals(Messages.ERROR_EMPTY_COMMAND, ex.getMessage());
     }
 
     @Test
     @DisplayName("empty input throws DingException")
     void parse_emptyInput_throws() {
         DingException ex = assertThrows(DingException.class, () -> parser.parse("   \t  "));
-        assertTrue(ex.getMessage().contains("waiting for your command"));
+        assertEquals(Messages.ERROR_EMPTY_COMMAND, ex.getMessage());
     }
 
     @Test
     @DisplayName("unknown keyword throws DingException")
     void parseUnknownKeyword_throws() {
         DingException ex = assertThrows(DingException.class, () -> parser.parse("foobar"));
-        assertTrue(ex.getMessage().contains("don't understand"));
+        assertEquals(Messages.ERROR_UNKNOWN_COMMAND, ex.getMessage());
     }
 
     @Test
@@ -63,14 +65,14 @@ public class ParserTest {
     @DisplayName("mark requires index")
     void parseMark_missingIndex_throws() {
         DingException ex = assertThrows(DingException.class, () -> parser.parse("mark"));
-        assertTrue(ex.getMessage().toLowerCase().contains("task number"));
+        assertEquals(Messages.ERROR_MISSING_TASK_INDEX, ex.getMessage());
     }
 
     @Test
     @DisplayName("mark invalid index format throws")
     void parseMark_invalidIndex_throws() {
         DingException ex = assertThrows(DingException.class, () -> parser.parse("mark abc"));
-        assertTrue(ex.getMessage().toLowerCase().contains("valid task number"));
+        assertEquals(Messages.ERROR_INVALID_TASK_INDEX, ex.getMessage());
     }
 
     @Test
@@ -98,7 +100,7 @@ public class ParserTest {
     @DisplayName("todo requires description")
     void parseTodo_missingDesc_throws() {
         DingException ex = assertThrows(DingException.class, () -> parser.parse("todo   \t "));
-        assertTrue(ex.getMessage().toLowerCase().contains("description"));
+        assertEquals(Messages.ERROR_TODO_MISSING_DESCRIPTION, ex.getMessage());
     }
 
     @Test
