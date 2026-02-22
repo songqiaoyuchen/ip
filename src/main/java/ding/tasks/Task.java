@@ -1,10 +1,15 @@
 package ding.tasks;
 
+import java.nio.charset.StandardCharsets;
+import java.util.Base64;
+
 /**
  * Abstract base class representing a task.
  * A task has a description and a completion status.
  */
 public abstract class Task {
+    private static final String ENCODED_DESCRIPTION_PREFIX = "b64:";
+
     private final String description;
     private boolean isDone;
 
@@ -59,6 +64,30 @@ public abstract class Task {
      */
     public String getDescription() {
         return this.description;
+    }
+
+    /**
+     * Encodes description for delimiter-safe storage.
+     */
+    protected String getEncodedDescription() {
+        String base64 = Base64.getEncoder().encodeToString(description.getBytes(StandardCharsets.UTF_8));
+        return ENCODED_DESCRIPTION_PREFIX + base64;
+    }
+
+    /**
+     * Decodes stored description and remains backward compatible with older plain-text format.
+     */
+    public static String decodeStoredDescription(String storedValue) {
+        if (storedValue == null || !storedValue.startsWith(ENCODED_DESCRIPTION_PREFIX)) {
+            return storedValue;
+        }
+        String base64 = storedValue.substring(ENCODED_DESCRIPTION_PREFIX.length());
+        try {
+            byte[] decoded = Base64.getDecoder().decode(base64);
+            return new String(decoded, StandardCharsets.UTF_8);
+        } catch (IllegalArgumentException e) {
+            return storedValue;
+        }
     }
 
     /**

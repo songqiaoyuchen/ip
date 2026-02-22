@@ -62,6 +62,6 @@ public class EventTask extends Task {
     @Override
     public String serialize() {
         return String.format("E | %d | %s | %s | %s",
-                isDone() ? 1 : 0, getDescription(), from, to);
+                isDone() ? 1 : 0, getEncodedDescription(), from, to);
     }
 }

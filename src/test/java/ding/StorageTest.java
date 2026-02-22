@@ -136,6 +136,20 @@ public class StorageTest {
     }
 
     @Test
+    @DisplayName("save and load description containing pipe character")
+    void saveAndLoad_descriptionWithPipe_preservesDescription() throws DingException {
+        ArrayList<Task> tasksToSave = new ArrayList<>();
+        tasksToSave.add(new TodoTask("investigate A | B edge case"));
+
+        storage.save(tasksToSave);
+        ArrayList<Task> loadedTasks = storage.load();
+
+        assertEquals(1, loadedTasks.size());
+        assertInstanceOf(TodoTask.class, loadedTasks.get(0));
+        assertEquals("investigate A | B edge case", loadedTasks.get(0).getDescription());
+    }
+
+    @Test
     @DisplayName("load skips blank lines")
     void load_fileWithBlankLines_skipsEmptyLines() throws DingException {
         ArrayList<Task> tasksToSave = new ArrayList<>();

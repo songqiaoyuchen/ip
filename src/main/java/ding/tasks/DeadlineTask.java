@@ -55,6 +55,6 @@ public class DeadlineTask extends Task {
      */
     @Override
     public String serialize() {
-        return String.format("D | %d | %s | %s", isDone() ? 1 : 0, getDescription(), by);
+        return String.format("D | %d | %s | %s", isDone() ? 1 : 0, getEncodedDescription(), by);
     }
 }

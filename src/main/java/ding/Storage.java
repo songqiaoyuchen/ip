@@ -126,7 +126,7 @@ public class Storage {
 
         String type = parts[0].trim();
         boolean isDone = "1".equals(parts[1].trim());
-        String description = parts[2].trim();
+        String description = Task.decodeStoredDescription(parts[2].trim());
 
         return switch (type) {
             case "T" -> new TodoTask(description, isDone);
