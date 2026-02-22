@@ -14,11 +14,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ding.exceptions.DingException;
-import ding.ui.Messages;
 import ding.tasks.DeadlineTask;
 import ding.tasks.EventTask;
 import ding.tasks.Task;
 import ding.tasks.TodoTask;
+import ding.ui.Messages;
 
 /**
  * Handles reading and writing tasks to disk.

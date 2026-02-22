@@ -10,7 +10,7 @@ public class DingException extends Exception {
      *
      * @param message the error message
      */
-    public DingException(String message) { 
-        super(message); 
+    public DingException(String message) {
+        super(message);
     }
 }

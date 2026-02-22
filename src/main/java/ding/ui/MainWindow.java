@@ -34,7 +34,7 @@ public class MainWindow extends AnchorPane {
     private final Image userImage = new Image(Objects.requireNonNull(
             this.getClass().getResourceAsStream("/images/user.jpg")));
     private final Image dingImage = new Image(Objects.requireNonNull(
-            this.getClass().getResourceAsStream("/images/ding.jpg")), 
+            this.getClass().getResourceAsStream("/images/ding.jpg")),
                     112, 112, true, true);
 
     /** Injects the Ding instance */
