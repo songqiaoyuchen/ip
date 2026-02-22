@@ -112,6 +112,8 @@ public class MainWindow extends AnchorPane {
     }
 
     private void scrollToBottom() {
+        // fix mouse scrolling issue with auto scroll, solution partially adapted from
+        // @author https://github.com/NUS-CS2103-AY2526-S2/forum/issues/157
         Platform.runLater(() -> {
             scrollPane.layout();
             scrollPane.setVvalue(1.0);
