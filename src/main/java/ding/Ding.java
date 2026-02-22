@@ -19,6 +19,7 @@ public class Ding {
     private final TaskManager taskManager;
     private final Parser parser;
     private final List<String> startupWarnings;
+    private boolean exitRequested;
     private final Deque<UndoableCommand> undoStack = new ArrayDeque<>();
     private final Deque<UndoableCommand> redoStack = new ArrayDeque<>();
 
@@ -42,10 +43,16 @@ public class Ding {
         return new ArrayList<>(startupWarnings);
     }
 
+    /** Returns whether the last processed command requested application exit. */
+    public boolean isExitRequested() {
+        return exitRequested;
+    }
+
     /**
      * Generates a response for the user's chat message.
      */
     public String getResponse(String input) throws DingException {
+        exitRequested = false;
         Command command = parser.parse(input);
 
         // Handle undo and redo commands
@@ -56,6 +63,7 @@ public class Ding {
             return handleRedo();
         }
 
+        exitRequested = command.isExit();
         String response = command.execute(taskManager);
 
         // Maintain undo/redo stacks for undoable commands

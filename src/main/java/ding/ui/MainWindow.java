@@ -5,6 +5,7 @@ import java.util.Objects;
 
 import ding.Ding;
 import ding.exceptions.DingException;
+import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -13,6 +14,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 
 /**
  * Controller for the main GUI.
@@ -43,6 +45,8 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         sendButton.disableProperty().bind(userInput.textProperty().isEmpty());
+        dialogContainer.heightProperty().addListener((obs, oldValue, newValue) ->
+                Platform.runLater(() -> scrollPane.setVvalue(1.0)));
     }
 
     /** Shows startup errors when Ding fails to initialize. */
@@ -93,10 +97,26 @@ public class MainWindow extends AnchorPane {
             );
         }
         userInput.clear();
+        if (ding.isExitRequested()) {
+            scrollToBottom();
+            scheduleShutdown();
+            return;
+        }
+        scrollToBottom();
+    }
 
-        // fix mouse scrolling issue with auto scroll
-        // @author https://github.com/NUS-CS2103-AY2526-S2/forum/issues/157
-        Platform.runLater(() -> scrollPane.setVvalue(1.0));
+    private void scheduleShutdown() {
+        PauseTransition delay = new PauseTransition(Duration.seconds(2));
+        delay.setOnFinished(event -> Platform.exit());
+        delay.play();
+    }
+
+    private void scrollToBottom() {
+        Platform.runLater(() -> {
+            scrollPane.layout();
+            scrollPane.setVvalue(1.0);
+            Platform.runLater(() -> scrollPane.setVvalue(1.0));
+        });
     }
 }
 
