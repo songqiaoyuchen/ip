@@ -46,7 +46,7 @@ public class Main extends Application {
                 Main.class.getResourceAsStream(ICON_PATH))));
         return fxmlLoader.<MainWindow>getController();
     }
-    
+
     private void initDing(MainWindow controller) {
         try {
             Ding ding = new Ding();

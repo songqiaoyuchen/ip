@@ -75,7 +75,7 @@ public class Parser {
         }
         try {
             int oneBased = Integer.parseInt(args.trim());
-            assert oneBased >= 1 : "Task index must be >= 1.";   
+            assert oneBased >= 1 : "Task index must be >= 1.";
             return oneBased - 1;
         } catch (NumberFormatException e) {
             throw new DingException(Messages.ERROR_INVALID_TASK_INDEX);
@@ -98,7 +98,7 @@ public class Parser {
 
     /**
      * Parses a deadline command and returns a DeadlineCommand object.
-     * Expected format: "<description> /by <date/time>"
+     * Expected format: {@code <description> /by <date/time>}
      *
      * @param args the arguments string containing description and deadline
      * @return a DeadlineCommand object
@@ -172,7 +172,7 @@ public class Parser {
 
     /**
      * Parses an event command and returns an EventCommand object.
-     * Expected format: "<description> /from <date/time> /to <date/time>"
+     * Expected format: {@code <description> /from <date/time> /to <date/time>}
      *
      * @param args the arguments string containing description and time range
      * @return an EventCommand object

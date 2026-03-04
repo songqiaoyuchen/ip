@@ -61,7 +61,7 @@ public class MainWindow extends AnchorPane {
         if (warnings == null || warnings.isEmpty()) {
             return;
         }
-        
+
         for (String warning : warnings) {
             dialogContainer.getChildren().add(
                     DialogBox.getDingDialog(warning, dingImage)
